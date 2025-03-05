@@ -452,26 +452,30 @@ button, .settings-buttons button {
 
 @media (max-width: 768px) {
     nav ul {
-        flex-direction: column;
+        flex-direction: column; /* Zajistí, že tlačítka budou pod sebou */
         background: #a76b3f; /* Lepší kontrast */
-        width: 100%;
         padding: 0;
+        margin: 0;
+        width: 100%;
+        display: block; /* Opravuje problém s flexboxem */
     }
 
     nav ul li {
-        width: 100%;
+        width: 100%; /* Zajistí, že každý prvek zabírá 100% šířky */
+        display: block; /* Opravuje špatné zobrazení flexboxu */
         text-align: center;
-        display: block; /* Ujistí se, že každý prvek se správně vykreslí */
+        margin-bottom: 5px; /* Přidá prostor mezi tlačítky */
     }
 
     nav ul li a {
         background: #d9a677; /* Lepší kontrast */
-        color: #4a2f1a; /* Tmavší text */
-        padding: 12px 15px;
+        color: #4a2f1a; /* Tmavší text pro lepší čitelnost */
+        padding: 15px;
         font-size: 16px;
         border-radius: 8px;
-        margin: 5px 0;
-        display: block; /* Každé tlačítko se zobrazí jako blokový prvek */
+        display: block; /* Každé tlačítko se zobrazí na novém řádku */
+        width: 90%;
+        margin: 0 auto; /* Zarovná tlačítko na střed */
     }
 
     nav ul li a:hover {
@@ -479,4 +483,5 @@ button, .settings-buttons button {
         color: white;
     }
 }
+
 
