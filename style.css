@@ -450,29 +450,37 @@ button, .settings-buttons button {
     }
 }
 
-/* 📌 Mobilní stylování pro navigaci */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column; /* Navigační prvky na sebe */
-        align-items: center;
-        height: auto;
-        padding: 10px 0;
+/* 📌 Standardní navigace pro větší displeje (PC) */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none; /* Skryje burger menu na PC */
     }
 
-    nav ul li {
-        width: 100%;
-        text-align: center;
-    }
-
-    nav ul li a {
-        width: 90%;
-        padding: 15px;
-        font-size: 1rem; /* Lepší čitelnost */
-    }
-
-    /* 📌 Skrytí navigace a přidání burger menu */
     .nav-menu {
-        display: none;
+        display: flex !important; /* Zajistí, že navigace bude vždy vidět na PC */
+        flex-direction: row;
+        justify-content: center;
+        background: none;
+        position: static;
+        box-shadow: none;
+        width: auto;
+    }
+
+    .nav-menu ul {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .nav-menu ul li {
+        display: inline-block;
+    }
+}
+
+/* 📌 Mobilní stylování – burger menu */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Navigace je skrytá, zobrazí se kliknutím na burger */
         flex-direction: column;
         background: #444;
         position: absolute;
@@ -481,13 +489,13 @@ button, .settings-buttons button {
         width: 100%;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
+        padding: 10px 0;
     }
 
     .nav-menu.active {
         display: flex;
     }
 
-    /* 📌 Styl burger tlačítka */
     .menu-toggle {
         display: flex;
         align-items: center;
@@ -499,5 +507,21 @@ button, .settings-buttons button {
         cursor: pointer;
         padding: 10px;
     }
-}
 
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        width: 90%;
+        padding: 15px;
+        font-size: 1rem;
+    }
+}
