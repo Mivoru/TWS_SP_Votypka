@@ -453,15 +453,30 @@ button, .settings-buttons button {
 @media (max-width: 768px) {
     nav ul {
         flex-direction: column;
-        background: #a76b3f; 
+        background: #a76b3f; /* Lepší kontrast */
+        width: 100%;
+        padding: 0;
     }
 
     nav ul li {
         width: 100%;
         text-align: center;
+        display: block; /* Ujistí se, že každý prvek se správně vykreslí */
     }
 
-    button {
-        width: 100%;
+    nav ul li a {
+        background: #d9a677; /* Lepší kontrast */
+        color: #4a2f1a; /* Tmavší text */
+        padding: 12px 15px;
+        font-size: 16px;
+        border-radius: 8px;
+        margin: 5px 0;
+        display: block; /* Každé tlačítko se zobrazí jako blokový prvek */
+    }
+
+    nav ul li a:hover {
+        background: #a76b3f; /* Zvýraznění při najetí */
+        color: white;
     }
 }
+
