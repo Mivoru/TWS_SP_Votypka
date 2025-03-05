@@ -450,126 +450,54 @@ button, .settings-buttons button {
     }
 }
 
-/* 📌 General Responsive Adjustments */
+/* 📌 Mobilní stylování pro navigaci */
 @media (max-width: 768px) {
-    body {
-        font-size: 16px; /* Increase font size for better readability */
-    }
-
-    header {
-        padding: 0.8rem;
-        text-align: center;
-    }
-
-    header h1 {
-        font-size: 1.5rem; /* Adjust heading size */
-    }
-
     nav ul {
-        flex-direction: column; /* Stack navigation links */
+        flex-direction: column; /* Navigační prvky na sebe */
+        align-items: center;
         height: auto;
-        padding: 5px;
+        padding: 10px 0;
     }
 
     nav ul li {
-        width: 100%; /* Make navigation links full-width */
+        width: 100%;
         text-align: center;
     }
 
     nav ul li a {
-        padding: 12px;
-        font-size: 1.2rem;
-        width: 100%;
-    }
-
-    main {
-        width: 95%;
+        width: 90%;
         padding: 15px;
+        font-size: 1rem; /* Lepší čitelnost */
     }
 
-    .grid-layout {
-        grid-template-columns: 1fr; /* Single column layout for mobile */
-        gap: 15px;
-    }
-
-    /* 📌 Adjust buttons */
-    button, .settings-buttons button {
-        padding: 12px 18px;
-        font-size: 1rem;
-    }
-
-    /* 📌 Adjust forms */
-    form {
+    /* 📌 Skrytí navigace a přidání burger menu */
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        background: #444;
+        position: absolute;
+        top: 60px;
+        left: 0;
         width: 100%;
-        padding: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
     }
 
-    input, textarea, select {
-        font-size: 1rem;
-        padding: 12px;
+    .nav-menu.active {
+        display: flex;
     }
 
-    /* 📌 Settings button for theme change */
-    .settings-container {
-        top: 5px;
-        right: 5px;
-        width: 50px;
-        height: 50px;
-    }
-
-    #settingsIcon {
-        width: 40px;
-        height: 40px;
-    }
-
-    /* 📌 Ensure images are responsive */
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* 📌 Tables - Make them scrollable */
-    table {
-        display: block;
-        overflow-x: auto;
-        width: 100%;
-    }
-
-    /* 📌 Footer adjustments */
-    footer {
-        font-size: 0.9rem;
+    /* 📌 Styl burger tlačítka */
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
         padding: 10px;
     }
 }
-
-/* 📌 High-Resolution Displays (Retina, 4K Phones) */
-@media (min-width: 768px) and (max-width: 1024px) {
-    body {
-        font-size: 18px;
-    }
-
-    header h1 {
-        font-size: 1.8rem;
-    }
-
-    main {
-        width: 90%;
-    }
-
-    nav ul {
-        padding: 8px;
-    }
-
-    nav ul li a {
-        font-size: 1.1rem;
-    }
-
-    button {
-        font-size: 1rem;
-    }
-}
-
-
-
-
 
