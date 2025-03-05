@@ -12,10 +12,17 @@ document.addEventListener("DOMContentLoaded", function () {
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js";
     document.head.appendChild(script);
 
-    menuToggle.addEventListener("click", function() {
+    menuToggle.addEventListener("click", function () {
         navMenu.classList.toggle("active");
     });
 
+    // Zavření menu při kliknutí na odkaz (volitelné)
+    document.querySelectorAll(".nav-menu a").forEach(link => {
+        link.addEventListener("click", () => {
+            navMenu.classList.remove("active");
+        });
+    });
+    
     script.onload = () => {
         let settingsAnimation = lottie.loadAnimation({
             container: settingsIcon,
