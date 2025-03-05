@@ -28,7 +28,7 @@ header {
 }
 
 header h1 {
-    margin: 5px;
+    margin: 20px;
     white-space: nowrap; /* Zabrání zalomení nadpisu */
 }
 
