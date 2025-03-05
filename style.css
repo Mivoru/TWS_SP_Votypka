@@ -450,7 +450,7 @@ button, .settings-buttons button {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 514px) {
     nav {
         width: 100%;
     }
