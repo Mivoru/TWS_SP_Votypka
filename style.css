@@ -444,21 +444,66 @@ button, .settings-buttons button {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* 📌 Burger menu se zobrazí na mobilech i při otočení na šířku */
 @media (max-width: 1024px) {
-    main {
-        width: 95%;
-    }
-}
-
-/* 📌 Standardní navigace pro větší displeje (PC) */
-@media (min-width: 769px) {
     .menu-toggle {
-        display: none; /* Skryje burger menu na PC */
+        display: flex !important; /* Viditelné na mobilech i v otočeném režimu */
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
+        padding: 10px;
     }
 
     .nav-menu {
-        display: flex !important; /* Zajistí, že navigace bude vždy vidět na PC */
+        display: none; /* Výchozí stav: skryté */
+        flex-direction: column; /* Navigační tlačítka pod sebe */
+        background: #444;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        padding: 10px 0;
+    }
+
+    /* 📌 Oprava, aby tlačítka byla vždy pod sebou */
+    .nav-menu.active {
+        display: flex; /* Aktivace menu */
+        flex-direction: column; /* Řadit tlačítka pod sebe */
+    }
+
+    .nav-menu ul {
         flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .nav-menu ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu ul li a {
+        width: 90%;
+        padding: 15px;
+        font-size: 1rem;
+    }
+}
+
+/* 📌 Skrytí burger menu na PC */
+@media (min-width: 1025px) {
+    .menu-toggle {
+        display: none; /* Burger menu není potřeba na PC */
+    }
+
+    .nav-menu {
+        display: flex !important; /* Navigace bude viditelná */
+        flex-direction: row; /* Odkazy v řadě */
         justify-content: center;
         background: none;
         position: static;
@@ -468,7 +513,7 @@ button, .settings-buttons button {
 
     .nav-menu ul {
         display: flex;
-        flex-direction: column;
+        flex-direction: row; /* Tlačítka zůstanou vedle sebe na velkých obrazovkách */
         gap: 10px;
     }
 
@@ -477,10 +522,12 @@ button, .settings-buttons button {
     }
 }
 
+
 /* 📌 Mobilní stylování – burger menu */
 @media (max-width: 768px) {
     .nav-menu {
-        flex-direction: column;
+        display: none; /* Skryté na začátku */
+        flex-direction: column; /* Zajistí, že tlačítka budou pod sebou */
         background: #444;
         position: absolute;
         top: 60px;
@@ -492,33 +539,21 @@ button, .settings-buttons button {
     }
 
     .nav-menu.active {
-        display: flex;
+        display: flex; /* Zobrazení při otevření menu */
     }
 
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: white;
-        cursor: pointer;
-        padding: 10px;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
+    .nav-menu ul {
+        flex-direction: column; /* Položky menu pod sebou */
+        align-items: center; /* Zarovnání na střed */
         padding: 10px 0;
     }
 
-    nav ul li {
+    .nav-menu ul li {
         width: 100%;
         text-align: center;
     }
 
-    nav ul li a {
+    .nav-menu ul li a {
         width: 90%;
         padding: 15px;
         font-size: 1rem;

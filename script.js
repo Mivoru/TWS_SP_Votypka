@@ -16,13 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
         navMenu.classList.toggle("active");
     });
 
-    // Zavření menu při kliknutí na odkaz (volitelné)
+    // 📌 Zavření menu při kliknutí na odkaz
     document.querySelectorAll(".nav-menu a").forEach(link => {
         link.addEventListener("click", () => {
             navMenu.classList.remove("active");
         });
     });
-    
+
     script.onload = () => {
         let settingsAnimation = lottie.loadAnimation({
             container: settingsIcon,
