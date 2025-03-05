@@ -466,6 +466,7 @@ button, .settings-buttons button {
     }
 
     nav ul li {
+        flex-direction: column;
         display: block; /* Každé tlačítko bude na novém řádku */
         width: 100%; /* Zajistí plnou šířku */
         text-align: center;
