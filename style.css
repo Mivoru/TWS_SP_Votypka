@@ -438,6 +438,19 @@ button, .settings-buttons button {
     pointer-events: auto;
 }
 
+.menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
@@ -446,7 +459,7 @@ button, .settings-buttons button {
 /* 📌 Skrytí burger menu na mobilech a tabletech */
 @media (max-width: 1024px) {
     .menu-toggle {
-        display: flex !important; /* Zobrazí burger ikonu */
+        display: none; /* Zobrazí burger ikonu */
         align-items: center;
         justify-content: center;
         background: none;
@@ -477,8 +490,6 @@ button, .settings-buttons button {
     /* 📌 Po kliknutí na burger menu se tlačítka ukážou v plné výšce */
     .nav-menu.active {
         display: flex;
-        max-height: 500px; /* Dynamicky se zvětší podle obsahu */
-        padding: 10px 0;
     }
 
     .nav-menu ul {
@@ -508,52 +519,70 @@ button, .settings-buttons button {
 /* 📌 Na středních zařízeních (768px - 1024px) bude navigace stále jako burger menu */
 @media (min-width: 768px) and (max-width: 1024px) {
     .nav-menu {
-        display: none; /* Skryté na začátku */
+        display: none; /* Výchozí skrytý stav */
+        flex-direction: column;
+        background: #444;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
     }
 
     .nav-menu.active {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        max-height: 500px; /* Rozbalení menu */
     }
 
     .nav-menu ul {
-        flex-direction: column;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        margin: 0;
     }
 
     .nav-menu ul li {
+        text-align: center;
         width: 100%;
         padding: 10px 0;
     }
 
     .nav-menu ul li a {
+        display: block;
         width: 90%;
+        padding: 15px;
+        font-size: 1rem;
         text-align: center;
+        color: white;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .nav-menu ul li a:hover {
+        background: #666;
     }
 }
 
-/* 📌 Na velkých obrazovkách se navigace zobrazí normálně */
 @media (min-width: 1025px) {
     .menu-toggle {
-        display: none;
+        display: none; /* Skryje burger na desktopu */
     }
 
     .nav-menu {
         display: flex !important;
         flex-direction: row;
         justify-content: center;
-        background: none;
         position: static;
+        background: none;
         box-shadow: none;
         width: auto;
     }
 
     .nav-menu ul {
         display: flex;
-        flex-direction: row; /* Tlačítka vedle sebe */
+        flex-direction: row;
         gap: 10px;
     }
 
