@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Kontakt</h1>
+        <div class="settings-container">
+            <div id="settingsIcon"></div> 
+            <div class="settings-buttons hidden">
+                <button id="toggle-layout">Přepnout rozložení</button>
+                <button id="dark-mode-toggle">Tmavý režim</button>
+                <button id="alt-mode-toggle">Alternativní režim</button>
+            </div>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Úvod</a></li>
+                <li><a href="transport.html">Transportní model</a></li>
+                <li><a href="reaction.html">Reakční model</a></li>
+                <li><a href="implementation.html">Implementace</a></li>
+                <li><a href="methods.html">Metody</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Kontaktujte nás</h2>
+            <p>Máte dotazy? Vyplňte formulář níže a my se vám ozveme.</p>
+            
+            <form id="contactForm">
+                <fieldset>
+                    <legend>Kontaktní formulář</legend>
+
+                    <div class="form-group">
+                        <label for="name">Jméno:</label>
+                        <input type="text" id="name" name="name" placeholder="Vaše jméno" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="email@domena.cz" required>
+                        <span id="emailError" class="error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefon:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+420 123 456 789">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Zpráva:</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Vaše zpráva..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Datum schůzky:</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="topic">Téma:</label>
+                        <select id="topic" name="topic">
+                            <option value="general">Obecný dotaz</option>
+                            <option value="support">Technická podpora</option>
+                            <option value="business">Obchodní spolupráce</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">Souhlasím s podmínkami</label>
+                    </div>
+
+                    <button type="submit">Odeslat</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 TRM 2D | <a href="https://validator.w3.org/">Validace HTML</a></p>
+    </footer>
+</body>
+</html>

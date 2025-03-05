@@ -1,0 +1,463 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+}
+
+/* 📌 Výchozí světlé schéma */
+body {
+    background-color: #f0ede9;
+    color: #3d3d3d;
+}
+
+/* 📌 Hlavička */
+header {
+    background: #5a5a5a;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    align-items: center; /* Zarovnání na střed vertikálně */
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    margin: 0;
+    white-space: nowrap; /* Zabrání zalomení nadpisu */
+}
+
+/* 📌 Navigace */
+nav ul {
+    list-style: none;
+    padding: 10px;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #444;
+    height: 50px;
+    flex-wrap: wrap;
+   
+    
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+nav ul li a::before {
+    content: "╬"; 
+    margin-right: 5px;
+}
+
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* 📌 Hover efekt navigačních tlačítek */
+nav ul li a:hover {
+    background: #666;
+}
+
+/* 📌 Obsah stránky */
+main {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    padding-bottom: 60px;
+}
+
+/* 📌 Grid layout */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* 📌 Tmavý režim */
+.dark-mode {
+    background-color: #2b2b2b;
+    color: white;
+}
+
+.dark-mode header {
+    background: #1e1e1e;
+}
+
+.dark-mode nav ul {
+    background: #3b3b3b;
+}
+
+.dark-mode main {
+    background: #383838;
+}
+
+/* 📌 Alternativní režim */
+.alt-mode {
+    background-color: #f8e5cf;
+    color: #4a3628;
+}
+
+.alt-mode header {
+    background: #b8865e;
+}
+
+.alt-mode nav ul {
+    background: #a77c55;
+}
+
+.alt-mode main {
+    background: #fff4e1;
+}
+
+/* 📌 Tlačítka pro různé režimy */
+.dark-mode button {
+    background: #444;
+}
+
+.alt-mode button {
+    background: #a77c55;
+}
+
+.alt-mode button:hover {
+    background: #75491f;
+}
+
+.alt-mode nav ul li a:hover {
+    background: #75491f !important; 
+    color: white;
+}
+
+
+/* 📌 Formulář */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 📌 Formulář - Tmavý a alternativní režim */
+.dark-mode form {
+    background: #333;
+    color: white;
+}
+
+.alt-mode form {
+    background: #ffe4b5;
+    color: #663300;
+}
+
+/* 📌 Formulář - Skupiny polí */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, textarea, select {
+    width: 100%; /* Zajistí, že pole se neroztáhne mimo fieldset */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Oprava přetečení */
+    background: white;
+    color: #333;
+}
+
+/* 📌 Checkbox správně zarovnaný */
+.form-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+table {
+    width: 100%; 
+    max-width: 100%; /* Zabrání roztahování stránky */
+    overflow-x: auto; /* Povolit posouvání místo roztažení */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #555;
+    color: white;
+}
+
+.dark-mode th {
+    background-color: #777;
+}
+
+.alt-mode th {
+    background-color: #a77c55;
+    color: white;
+}
+
+/* 📌 Obrázky */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+/* 📌 Patička */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #5a5a5a;
+    color: white;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+}
+
+.dark-mode footer {
+    background: #1e1e1e;
+    color: #bbb;
+}
+
+.alt-mode footer {
+    background: #b8865e;
+    color: white;
+}
+
+/* 📌 Audio */
+audio {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--bg-color);
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: 2px 6px 12px rgba(82, 82, 82, 0.2);
+}
+
+.light-mode audio {
+    --bg-color: #f0f0f0;
+    filter: invert(0);
+}
+
+.dark-mode audio {
+    --bg-color: #333;
+    filter: invert(1);
+}
+
+fieldset {
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box; /* Zajistí, že padding nebude přičítán k šířce */
+    margin: 0;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+section {
+    background: #ffffff;
+    padding: 20px;
+    margin: 20px auto; /* Zarovná na střed */
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 1000px; /* Zvýšená maximální šířka pro sjednocení */
+    box-sizing: border-box; /* Zabrání roztahování kvůli paddingu */
+}
+
+
+/* 📌 Tmavý režim */
+.dark-mode section {
+    background: #444;
+    color: white;
+}
+
+/* 📌 Alternativní režim */
+.alt-mode section {
+    background: #ffe4b5;
+    color: #663300;
+}
+
+/* 📌 Hover efekt */
+.settings-buttons button:hover {
+    transform: scale(1.05);
+}
+
+.dark-mode .settings-buttons button {
+    background: #444;
+    color: white;
+}
+
+.dark-mode .settings-buttons button:hover {
+    background: #555;
+}
+
+/* 📌 Alternativní režim */
+.alt-mode .settings-buttons button {
+    background: #a77c55; /* Béžovo-hnědá */
+    color: white;
+}
+
+.alt-mode .settings-buttons button:hover {
+    background: #75491f; /* Tmavší hnědý odstín */
+}
+
+main {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+body {
+    font-family: 'CustomFont', Arial, sans-serif;
+}
+
+figure, img {
+    display: block;
+    max-width: 80%;
+    margin: auto;
+    border-radius: 5px;
+}
+
+figure {
+    text-align: center;
+    background: #f9f9f9;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* 📌 Hover efekt pro obrázky */
+figure img:hover {
+    transform: scale(1.02); /* Mírné zvětšení */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Zvýrazněný stín */
+}
+
+/* 📌 Popisek obrázku */
+figcaption {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+button, .settings-buttons button {
+    background: #777;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.settings-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+#settingsIcon {
+    width: 50px;
+    height: 50px;
+}
+
+/* Skrytí tlačítek na začátku */
+.settings-buttons {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Zobrazení tlačítek při najetí */
+.settings-container:hover .settings-buttons {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+    main {
+        width: 95%;
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    button {
+        width: 100%;
+    }
+}

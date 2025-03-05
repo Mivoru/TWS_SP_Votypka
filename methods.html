@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hlavní metody TRM 2D</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Hlavní metody TRM 2D</h1>
+        <div class="settings-container">
+            <div id="settingsIcon"></div> 
+            <div class="settings-buttons hidden">
+                <button id="toggle-layout">Přepnout rozložení</button>
+                <button id="dark-mode-toggle">Tmavý režim</button>
+                <button id="alt-mode-toggle">Alternativní režim</button>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Úvod</a></li>
+                <li><a href="transport.html">Transportní model</a></li>
+                <li><a href="reaction.html">Reakční model</a></li>
+                <li><a href="implementation.html">Implementace</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Metoda štěpení operátoru</h2>
+            <p>Metoda štěpení operátoru je numerická technika, která rozděluje složitou úlohu na dvě jednodušší části: transportní a reakční. Transportní část popisuje pohyb látky v prostředí, zatímco reakční část řeší chemické přeměny. Tato metoda umožňuje efektivnější výpočty, protože na každou část lze použít specializovanou numerickou metodu. Například pro transport se často používá metoda konečných diferencí a pro reakce metoda Runge-Kutta.</p>
+            <audio controls>
+                <source src="audio/osm_explanation.mp3" type="audio/mpeg">
+                Váš prohlížeč nepodporuje přehrávání audia.
+            </audio>
+
+        </section>
+        
+        <section>
+            <h2>Metoda konečných diferencí (FDM)</h2>
+            <p>Metoda konečných diferencí nahrazuje derivace ve diferenciálních rovnicích diskrétními rozdíly mezi body sítě. Pro výpočet hodnoty v dalším časovém kroku se používají sousední body mřížky. Tato metoda je běžně využívána v transportních modelech, kde umožňuje aproximovat časový a prostorový vývoj koncentrací rozpuštěných látek.</p>
+            <audio controls>
+                <source src="audio/fdm_explanation.mp3" type="audio/mpeg">
+                Váš prohlížeč nepodporuje přehrávání audia.
+            </audio>
+            <figure>
+                <img src="images/FDM.png" alt="Finite Difference Method" loading="lazy">
+                <figcaption>Vizualizace metody konečných diferencí (FDM)</figcaption>
+            </figure>
+
+        </section>
+        
+        <section>
+            <h2>Metoda konečných objemů (FVM)</h2>
+            <p>Metoda konečných objemů je založena na zákonu zachování hmoty. Celková změna veličiny uvnitř každé výpočetní buňky je dána tokem přes její hranice. Tato metoda je obzvláště užitečná v transportních modelech, protože zajišťuje numerickou stabilitu a zachování celkové hmotnosti látky v systému.</p>
+            <audio controls>
+                <source src="audio/fvm_explanation.mp3" type="audio/mpeg">
+                Váš prohlížeč nepodporuje přehrávání audia.
+            </audio>
+        </section>
+        <figure>
+            <img src="images/FVM.png" alt="Finite Volume Method" loading="lazy">
+            <figcaption>Vizualizace metody konečných objemů (FVM)</figcaption>
+        </figure>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 TRM 2D</p>
+    </footer>
+</body>
+</html>

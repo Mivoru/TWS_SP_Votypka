@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reakční model</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Reakční model</h1>
+        <div class="settings-container">
+            <div id="settingsIcon"></div> 
+            <div class="settings-buttons hidden">
+                <button id="toggle-layout">Přepnout rozložení</button>
+                <button id="dark-mode-toggle">Tmavý režim</button>
+                <button id="alt-mode-toggle">Alternativní režim</button>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Úvod</a></li>
+                <li><a href="transport.html">Transportní model</a></li>
+                <li><a href="implementation.html">Implementace</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+                <li><a href="methods.html">Metody</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+    <main>
+        <section>
+            <h2>Typy chemických reakcí</h2>
+            <ul>
+                <li>Rozpouštění</li>
+                <li>Redoxní reakce</li>
+                <li>Iontová výměna</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Ukázkový výpočet reakčního modelu</h2>
+            <p>Uvažujme chemickou reakci rozpouštění kalcitu v přítomnosti oxidu uhličitého. Modelujeme ji soustavou diferenciálních rovnic, kde koncentrace vápníku, hydrogenuhličitanu a oxidu uhličitého v roztoku interagují podle kinetických a rovnovážných podmínek. Výpočet probíhá iterativně metodou Runge-Kutta, která umožňuje přesně simulovat změny koncentrací v čase.</p>
+            <audio controls>
+                <source src="audio/reaction_calculation.mp3" type="audio/mpeg">
+                Váš prohlížeč nepodporuje přehrávání audia.
+            </audio>
+            <figure>
+                <img src="images/chemicalReaction.png" alt="Chemical Reaction" loading="lazy">
+                <figcaption>Model chemických reakcí v podzemní vodě</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 TRM 2D</p>
+    </footer>
+</body>
+</html>
