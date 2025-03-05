@@ -443,10 +443,10 @@ button, .settings-buttons button {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-/* 📌 Skrytí burger menu a jeho tlačítek na mobilních zařízeních */
+/* 📌 Skrytí burger menu na mobilech a tabletech */
 @media (max-width: 1024px) {
     .menu-toggle {
-        display: flex !important; /* Viditelné tlačítko menu */
+        display: flex !important; /* Zobrazí burger ikonu */
         align-items: center;
         justify-content: center;
         background: none;
@@ -457,9 +457,9 @@ button, .settings-buttons button {
         padding: 10px;
     }
 
-    /* 📌 Výchozí stav menu - skryté */
+    /* 📌 Výchozí stav - menu je úplně skryté */
     .nav-menu {
-        display: none; /* Na začátku skryté */
+        display: none; /* Skryté na začátku */
         flex-direction: column;
         background: #444;
         position: absolute;
@@ -468,15 +468,17 @@ button, .settings-buttons button {
         width: 100%;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
-        padding: 10px 0;
+        padding: 0; /* Bez vnitřního odsazení */
+        max-height: 0; /* Skryté tlačítka */
+        overflow: hidden; /* Nezobrazovat tlačítka před otevřením */
+        transition: max-height 0.3s ease-in-out; /* Animace */
     }
 
-    /* 📌 Po kliknutí na burger menu se zobrazí tlačítka pod sebou */
+    /* 📌 Po kliknutí na burger menu se tlačítka ukážou v plné výšce */
     .nav-menu.active {
-        display: flex; /* Aktivuje menu */
-        flex-direction: column; /* Řadí tlačítka pod sebe */
-        align-items: center; /* Zarovná na střed */
-        justify-content: flex-start; /* Tlačítka začnou od vrchu */
+        display: flex;
+        max-height: 500px; /* Dynamicky se zvětší podle obsahu */
+        padding: 10px 0;
     }
 
     .nav-menu ul {
@@ -503,17 +505,18 @@ button, .settings-buttons button {
     }
 }
 
-/* 📌 Speciální oprava pro malé displeje (mobilní telefony) */
-@media (max-width: 768px) {
+/* 📌 Na středních zařízeních (768px - 1024px) bude navigace stále jako burger menu */
+@media (min-width: 768px) and (max-width: 1024px) {
     .nav-menu {
-        top: 50px; /* Posunutí menu níže, aby nepřekrývalo header */
+        display: none; /* Skryté na začátku */
     }
 
     .nav-menu.active {
         display: flex;
-        flex-direction: column; /* Ujistí se, že tlačítka jsou pod sebou */
+        flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        max-height: 500px; /* Rozbalení menu */
     }
 
     .nav-menu ul {
@@ -550,7 +553,7 @@ button, .settings-buttons button {
 
     .nav-menu ul {
         display: flex;
-        flex-direction: row; /* Tlačítka v řádku */
+        flex-direction: row; /* Tlačítka vedle sebe */
         gap: 10px;
     }
 

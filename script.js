@@ -13,13 +13,20 @@ document.addEventListener("DOMContentLoaded", function () {
     document.head.appendChild(script);
 
     menuToggle.addEventListener("click", function () {
-        navMenu.classList.toggle("active");
+        if (navMenu.style.maxHeight === "0px" || navMenu.style.maxHeight === "") {
+            navMenu.style.display = "flex";
+            navMenu.style.maxHeight = "500px"; // Ukáže menu
+        } else {
+            navMenu.style.maxHeight = "0px"; // Schová menu
+            setTimeout(() => (navMenu.style.display = "none"), 300); // Po animaci ho skryje
+        }
     });
 
     // 📌 Automatické zavření menu po kliknutí na odkaz
     document.querySelectorAll(".nav-menu a").forEach(link => {
         link.addEventListener("click", () => {
-            navMenu.classList.remove("active");
+            navMenu.style.maxHeight = "0px";
+            setTimeout(() => (navMenu.style.display = "none"), 300);
         });
     });
 
