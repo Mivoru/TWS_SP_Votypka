@@ -25,6 +25,7 @@ header {
     align-items: center; /* Zarovnání na střed vertikálně */
     justify-content: space-between;
     flex-wrap: wrap;
+    display: flex;
 }
 
 header h1 {
@@ -438,8 +439,11 @@ button, .settings-buttons button {
     pointer-events: auto;
 }
 
+/* 📌 Burger menu tlačítko */
 .menu-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     font-size: 2rem;
@@ -449,6 +453,57 @@ button, .settings-buttons button {
     position: absolute;
     top: 10px;
     right: 10px;
+    z-index: 1100; /* Aby bylo nad menu */
+}
+
+/* 📌 Výchozí stav navigace - skryté menu */
+.nav-menu {
+    display: none; /* Skryté na začátku */
+    flex-direction: column;
+    background: #444;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* 📌 Po kliknutí na burger menu se zobrazí */
+.nav-menu.active {
+    display: flex;
+}
+
+/* 📌 Styl položek menu */
+.nav-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-menu ul li {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.nav-menu ul li a {
+    display: block;
+    width: 90%;
+    padding: 15px;
+    font-size: 1rem;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+    background: #666;
 }
 
 
@@ -456,21 +511,8 @@ button, .settings-buttons button {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-/* 📌 Skrytí burger menu na mobilech a tabletech */
+/* 📌 Na mobilech a tabletech do 1024px se zobrazuje burger menu */
 @media (max-width: 1024px) {
-    .menu-toggle {
-        display: none; /* Zobrazí burger ikonu */
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: white;
-        cursor: pointer;
-        padding: 10px;
-    }
-
-    /* 📌 Výchozí stav - menu je úplně skryté */
     .nav-menu {
         display: none; /* Skryté na začátku */
         flex-direction: column;
@@ -481,13 +523,9 @@ button, .settings-buttons button {
         width: 100%;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
-        padding: 0; /* Bez vnitřního odsazení */
-        max-height: 0; /* Skryté tlačítka */
-        overflow: hidden; /* Nezobrazovat tlačítka před otevřením */
-        transition: max-height 0.3s ease-in-out; /* Animace */
     }
 
-    /* 📌 Po kliknutí na burger menu se tlačítka ukážou v plné výšce */
+    /* 📌 Po kliknutí na burger menu se zobrazí */
     .nav-menu.active {
         display: flex;
     }
@@ -565,9 +603,10 @@ button, .settings-buttons button {
     }
 }
 
+/* 📌 Na desktopu (nad 1025px) bude navigace normální */
 @media (min-width: 1025px) {
     .menu-toggle {
-        display: none; /* Skryje burger na desktopu */
+        display: none; /* Skryje burger menu */
     }
 
     .nav-menu {
