@@ -60,7 +60,9 @@ nav ul li a::before {
 
 
 nav ul li a {
-    color: white;
+    border: 1px solid #444;
+    margin: 0 5px;
+    color: #FFFFFF;
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -128,6 +130,7 @@ main {
 }
 
 .alt-mode nav ul {
+    
     background: #a77c55;
 }
 
