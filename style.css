@@ -458,7 +458,7 @@ button, .settings-buttons button {
 
     .nav-menu {
         display: flex !important; /* Zajistí, že navigace bude vždy vidět na PC */
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         background: none;
         position: static;
@@ -468,7 +468,7 @@ button, .settings-buttons button {
 
     .nav-menu ul {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 10px;
     }
 
