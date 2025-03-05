@@ -443,11 +443,10 @@ button, .settings-buttons button {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-/* 📌 Burger menu se zobrazí na mobilech i při otočení na šířku */
+/* 📌 Skrytí burger menu a jeho tlačítek na mobilních zařízeních */
 @media (max-width: 1024px) {
     .menu-toggle {
-        display: flex !important; /* Viditelné na mobilech i v otočeném režimu */
+        display: flex !important; /* Viditelné tlačítko menu */
         align-items: center;
         justify-content: center;
         background: none;
@@ -458,9 +457,10 @@ button, .settings-buttons button {
         padding: 10px;
     }
 
+    /* 📌 Výchozí stav menu - skryté */
     .nav-menu {
-        display: none; /* Výchozí stav: skryté */
-        flex-direction: column; /* Navigační tlačítka pod sebe */
+        display: none; /* Na začátku skryté */
+        flex-direction: column;
         background: #444;
         position: absolute;
         top: 60px;
@@ -471,39 +471,76 @@ button, .settings-buttons button {
         padding: 10px 0;
     }
 
-    /* 📌 Oprava, aby tlačítka byla vždy pod sebou */
+    /* 📌 Po kliknutí na burger menu se zobrazí tlačítka pod sebou */
     .nav-menu.active {
-        display: flex; /* Aktivace menu */
-        flex-direction: column; /* Řadit tlačítka pod sebe */
+        display: flex; /* Aktivuje menu */
+        flex-direction: column; /* Řadí tlačítka pod sebe */
+        align-items: center; /* Zarovná na střed */
+        justify-content: flex-start; /* Tlačítka začnou od vrchu */
     }
 
     .nav-menu ul {
+        width: 100%;
+        display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 10px 0;
+        padding: 0;
+        margin: 0;
     }
 
     .nav-menu ul li {
         width: 100%;
         text-align: center;
+        padding: 10px 0;
+    }
+
+    .nav-menu ul li a {
+        display: block;
+        width: 90%;
+        padding: 15px;
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+
+/* 📌 Speciální oprava pro malé displeje (mobilní telefony) */
+@media (max-width: 768px) {
+    .nav-menu {
+        top: 50px; /* Posunutí menu níže, aby nepřekrývalo header */
+    }
+
+    .nav-menu.active {
+        display: flex;
+        flex-direction: column; /* Ujistí se, že tlačítka jsou pod sebou */
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-menu ul li {
+        width: 100%;
+        padding: 10px 0;
     }
 
     .nav-menu ul li a {
         width: 90%;
-        padding: 15px;
-        font-size: 1rem;
+        text-align: center;
     }
 }
 
-/* 📌 Skrytí burger menu na PC */
+/* 📌 Na velkých obrazovkách se navigace zobrazí normálně */
 @media (min-width: 1025px) {
     .menu-toggle {
-        display: none; /* Burger menu není potřeba na PC */
+        display: none;
     }
 
     .nav-menu {
-        display: flex !important; /* Navigace bude viditelná */
-        flex-direction: row; /* Odkazy v řadě */
+        display: flex !important;
+        flex-direction: row;
         justify-content: center;
         background: none;
         position: static;
@@ -513,49 +550,11 @@ button, .settings-buttons button {
 
     .nav-menu ul {
         display: flex;
-        flex-direction: row; /* Tlačítka zůstanou vedle sebe na velkých obrazovkách */
+        flex-direction: row; /* Tlačítka v řádku */
         gap: 10px;
     }
 
     .nav-menu ul li {
         display: inline-block;
-    }
-}
-
-
-/* 📌 Mobilní stylování – burger menu */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none; /* Skryté na začátku */
-        flex-direction: column; /* Zajistí, že tlačítka budou pod sebou */
-        background: #444;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        padding: 10px 0;
-    }
-
-    .nav-menu.active {
-        display: flex; /* Zobrazení při otevření menu */
-    }
-
-    .nav-menu ul {
-        flex-direction: column; /* Položky menu pod sebou */
-        align-items: center; /* Zarovnání na střed */
-        padding: 10px 0;
-    }
-
-    .nav-menu ul li {
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-menu ul li a {
-        width: 90%;
-        padding: 15px;
-        font-size: 1rem;
     }
 }

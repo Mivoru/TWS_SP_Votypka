@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         navMenu.classList.toggle("active");
     });
 
-    // 📌 Zavření menu při kliknutí na odkaz
+    // 📌 Automatické zavření menu po kliknutí na odkaz
     document.querySelectorAll(".nav-menu a").forEach(link => {
         link.addEventListener("click", () => {
             navMenu.classList.remove("active");
