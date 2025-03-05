@@ -450,45 +450,126 @@ button, .settings-buttons button {
     }
 }
 
-@media (max-width: 514px) {
-    nav {
-        width: 100%;
+/* 📌 General Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px; /* Increase font size for better readability */
+    }
+
+    header {
+        padding: 0.8rem;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.5rem; /* Adjust heading size */
     }
 
     nav ul {
-        display: flex;
-        flex-direction: column; /* Tlačítka se zarovnají pod sebe */
-        align-items: center; /* Zarovná na střed */
-        padding: 0;
-        margin: 0;
-        background: #a76b3f; /* Kontrastní pozadí */
-        width: 100%;
+        flex-direction: column; /* Stack navigation links */
+        height: auto;
+        padding: 5px;
     }
 
     nav ul li {
-        flex-direction: column;
-        display: block; /* Každé tlačítko bude na novém řádku */
-        width: 100%; /* Zajistí plnou šířku */
+        width: 100%; /* Make navigation links full-width */
         text-align: center;
-        margin: 0;
-        padding: 0;
     }
 
     nav ul li a {
-        display: block; /* Každé tlačítko dostane svou řádku */
-        width: 100%; /* Zajistí, že tlačítko pokryje celou šířku */
-        padding: 15px 0;
-        background: #d9a677; /* Kontrastní tlačítko */
-        color: #4a2f1a;
-        font-size: 16px;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Jemné oddělení tlačítek */
+        padding: 12px;
+        font-size: 1.2rem;
+        width: 100%;
     }
 
-    nav ul li a:hover {
-        background: #a76b3f; /* Tmavší hnědá */
-        color: white;
+    main {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .grid-layout {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: 15px;
+    }
+
+    /* 📌 Adjust buttons */
+    button, .settings-buttons button {
+        padding: 12px 18px;
+        font-size: 1rem;
+    }
+
+    /* 📌 Adjust forms */
+    form {
+        width: 100%;
+        padding: 15px;
+    }
+
+    input, textarea, select {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    /* 📌 Settings button for theme change */
+    .settings-container {
+        top: 5px;
+        right: 5px;
+        width: 50px;
+        height: 50px;
+    }
+
+    #settingsIcon {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* 📌 Ensure images are responsive */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* 📌 Tables - Make them scrollable */
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    /* 📌 Footer adjustments */
+    footer {
+        font-size: 0.9rem;
+        padding: 10px;
     }
 }
+
+/* 📌 High-Resolution Displays (Retina, 4K Phones) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    body {
+        font-size: 18px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    main {
+        width: 90%;
+    }
+
+    nav ul {
+        padding: 8px;
+    }
+
+    nav ul li a {
+        font-size: 1.1rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+}
+
+
+
 
 
