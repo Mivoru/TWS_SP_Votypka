@@ -438,6 +438,10 @@ button, .settings-buttons button {
     pointer-events: auto;
 }
 
+.menu-toggle {
+    display: none; /* Na větších obrazovkách bude skryté */
+}
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
