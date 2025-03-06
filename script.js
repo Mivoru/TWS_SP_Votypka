@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.querySelector(".menu-toggle");
     const navMenu = document.querySelector(".nav-menu");
 
+
     // 📌 Načtení Lottie.js pro animaci ikon
     const script = document.createElement("script");
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js";
@@ -23,12 +24,28 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    
+    function toggleMethod(id) {
+        const details = document.querySelector(`#${id} .method-details`);
+        if (!details) return;
+
+        details.style.display = details.style.display === "block" ? "none" : "block";
+    }
+
+    // Přidáme posluchače na všechna tlačítka metod
+    document.querySelectorAll(".method-toggle").forEach(button => {
+        button.addEventListener("click", function () {
+            const id = this.parentElement.id;
+            toggleMethod(id);
+        });
+    });
+
     script.onload = () => {
         let settingsAnimation = lottie.loadAnimation({
             container: settingsIcon,
             renderer: "svg",
-            loop: false, // ✅ Animace nebude nekonečná
-            autoplay: false, // ✅ Animace se nespustí hned při načtení stránky
+            loop: false,
+            autoplay: false, 
             path: "animation/Animation - 1741020087118.json", // Výchozí ikona (světlý režim)
         });
 
@@ -48,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let jsonPath = "animation/Animation - 1741020087118.json"; // Světlá verze
 
             if (theme === "dark-mode") {
-                jsonPath = "animation/Animation - 1741020063156.json"; // Tmavá verze
+                jsonPath = "animation/Animation - 1741020087118.json"; // Tmavá verze
             } else if (theme === "alt-mode") {
                 jsonPath = "animation/Animation - 1741019998037.json"; // Alternativní verze
             }

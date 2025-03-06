@@ -441,6 +441,50 @@ button, .settings-buttons button {
 .menu-toggle {
     display: none; /* Na větších obrazovkách bude skryté */
 }
+.method {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.method-toggle {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    background: #5a5a5a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.method-toggle:hover {
+    background: #444;
+}
+
+.method-details {
+    display: none;
+    padding: 15px;
+    background: #f9f9f9;
+}
+
+.dark-mode .method-details {
+    background: #333;
+    color: white;
+}
+
+.alt-mode .method-details {
+    background: #ffe4b5;
+    color: #663300;
+}
+
+pre {
+    background: #222;
+    color: #fff;
+    padding: 10px;
+    overflow-x: auto;
+}
 
 
 @keyframes fadeIn {

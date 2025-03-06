@@ -42,32 +42,177 @@
             </ul>
         </section>
 
-        <section>
-            <h2>Tabulka výsledků simulací</h2>
-            <table>
-                <caption>Výsledky experimentů</caption>
-                <thead>
-                    <tr>
-                        <th>Parametr</th>
-                        <th>Min</th>
-                        <th>Max</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Koncentrace (mg/L)</td>
-                        <td>5</td>
-                        <td>50</td>
-                    </tr>
-                    <tr>
-                        <td>Rychlost proudění (m/s)</td>
-                        <td>0.1</td>
-                        <td>2.5</td>
-                    </tr>
-                </tbody>
-            </table>
+        <section id="method-list">
+            <h2>Seznam metod</h2>
+        
+            <div class="method" id="init_quantities">
+                <button class="method-toggle">➕ init_quantities()</button>
+                <div class="method-details">
+                    <p><strong>Popis:</strong>
+                                Tato metoda inicializuje seznam veličin a jejich jednotek na základě XML souboru.
+                        Prochází XML stromem a hledá uzly s atributem quantityID. Pokud je atribut nalezen,
+                        uloží ho do mapy quantities spolu s odpovídajícím textem.
+                        Pokud atribut chybí, metoda pokračuje rekurzivně ve vnořených uzlech.</p>
+                    <pre><code>
+                        void trm_main::init_quantities(XMLElement *parent_elem) 
+                        {
+                            for (XMLElement *child = parent_elem->FirstChildElement(); child != nullptr; 
+                                 child = child->NextSiblingElement()) 
+                            {
+                                string quantity_id = out.get_attr(child, "quantityID", false);
+                                if (quantity_id == "") {
+                                    init_quantities(child); // Rekurzivní volání pro vnořené uzly
+                                }
+                                else {
+                                    string tmp_text = child->GetText();
+                                    quantities[quantity_id] = out.trim_string(tmp_text); // Uložení veličiny
+                                }
+                            }
+                        }
+                        
+                    </code></pre>
+                    <p><strong>Jak to funguje?</strong>
+                                Prochází XML uzly – metoda iteruje přes všechny poduzly parent_elem.
+                        Hledá atribut quantityID – pokud není nalezen, pokračuje do vnořených prvků.
+                        Ukládá veličiny do mapy quantities – spáruje quantityID s odpovídajícím textem.
+                        Používá rekurzi – umožňuje správnou inicializaci i pro hluboce vnořené XML struktury.</p>
+                </div>
+            </div>
+        
+            <div class="method" id="calculate">
+                <button class="method-toggle" >➕ calculate()</button>
+                <div class="method-details">
+                    <p><strong>Popis:</strong> 
+                                Tato metoda spouští hlavní výpočet transportních komponent a chemických reakcí.
+                        Nejprve resetuje předchozí výsledky, aktivuje transportní a reakční model a poté iteruje přes časové kroky.
+                        V každém kroku upravuje okrajové podmínky, počítá transport a reakce a přizpůsobuje časový krok
+                        podle přesnosti výpočtů.</p>
+                    <pre><code>
+                        void trm_main::calculate()
+                        {
+                            trans.remove_results();
+                            react.remove_results();
+                        
+                            trans.activate();
+                            vector<double> tmp_porosity = trans.get_component_data("Porosity", "", -1);
+                            react.set_porosity(tmp_porosity);
+                            react.set_components_for_factors(&trans.porosity, &trans.volume, &trans.conductivity_long, &trans.conductivity_trans);
+                            react.init();
+                            activate_boundary_conditions();
+                        
+                            log(BASIC) << "Calculation of time steps loop started.";
+                            vector<double> transport_concs;
+                            vector<string> transport_names;
+                            current_bc_time = 0;
+                            unsigned t_index = trans.get_time_init_id();
+                            double curr_time_step = trans.get_time_step(trans.time_init_id);
+                            double t;
+                        
+                            for (t = trans.time_init + curr_time_step; t < trans.time_end; t += curr_time_step) {
+                                trans.calculate(t_index, t, transport_concs, transport_names, current_bc_time, {}, curr_time_step);
+                                if (react.is_calculated_step(t_index)) {
+                                    react.calculate(t_index, t, curr_time_step, transport_concs, transport_names, {});
+                                }
+                                t_index++;
+                            }
+                            log(BASIC) << "Calculation of time steps loop ended.";
+                            react.close();
+                        }
+                        
+                    </code></pre>
+                    <p><strong>Jak to funguje?</strong>     Resetuje výsledky – metoda vymaže předchozí simulace transportu a reakcí.
+                        Inicializuje transportní a reakční model – nastavuje počáteční podmínky.
+                        Prochází časovými kroky – iteruje přes časovou osu od počátečního do koncového času.
+                        Vypočítává transport – volá trans.calculate(), která simuluje šíření látek.
+                        Vypočítává chemické reakce – volá react.calculate(), která počítá chemické interakce.
+                        Dynamicky upravuje časový krok – pokud je odchylka v koncentracích malá, časový krok se zvětší; pokud je velká, zmenší se.</p>
+                </div>
+            </div>
+        
+            <div class="method" id="load_inputs">
+                <button class="method-toggle" >➕ load_inputs()</button>
+                <div class="method-details">
+                    <p><strong>Popis:</strong>      Metoda načítá vstupní data ze souboru XML. Ověřuje jeho správnost, inicializuje transportní
+                        a reakční modul a načítá jejich parametry.</p>
+                    <pre><code>
+                        void trm_main::load_inputs(string input_file, bool require_all_comps)
+                        {
+                            XMLError result = xmldoc.LoadFile(input_file.c_str());
+                            if (result != tinyxml2::XML_SUCCESS) {
+                                throw trm_error("Loading of input XML file failed");
+                            }
+                        
+                            XMLElement *root_elem = xmldoc.FirstChildElement("TRM");
+                            if (root_elem == nullptr) {
+                                throw trm_error("No root element in input XML file");
+                            }
+                        
+                            for (XMLElement *child = root_elem->FirstChildElement(); child != nullptr; 
+                                 child = child->NextSiblingElement()) 
+                            {
+                                string tag_name = child->Name();
+                                if (tag_name == "Quantities") {
+                                    init_quantities(child);
+                                } 
+                                else if (tag_name == "TransportModule") {
+                                    trans.set_metadata(
+                                        out.get_attr(child, "name"), 
+                                        out.get_attr(child, "version"), 
+                                        out.get_attr(child, "type"),
+                                        out.get_attr_double(child, "numTolerance", false));
+                                    trans.load_time(out.get_child_elem(child, "Time"));
+                                } 
+                                else if (tag_name == "ReactionModule") {
+                                    react.set_database(out.get_file_name_path(out.get_child_elem(child, "PhreeqcDatabase")));
+                                }
+                            }
+                            log(BASIC) << "Input data loaded from the XML file '" + input_file + "'.";
+                        }
+                        
+                    </code></pre>
+                    <p><strong>Jak to funguje?</strong>     Načte XML soubor a zkontroluje, zda se úspěšně otevřel.
+                        Najde kořenový element XML (<TRM>) a prochází jeho děti.
+                        Inicializuje veličiny (Quantities).
+                        Načte transportní modul – nastaví metadata, časové parametry a síť.
+                        Načte reakční modul – nastaví databázi a reakční parametry.</p>
+                </div>
+            </div>
+        
+            <div class="method" id="save_inputs">
+                <button class="method-toggle" >➕ save_inputs()</button>
+                <div class="method-details">
+                    <p><strong>Popis:</strong>      Metoda ukládá aktuální vstupní data a výsledky simulace do XML souboru.
+                        Zajišťuje konzistenci mezi uloženými hodnotami a nastaveními modelu.</p>
+                    <pre><code>
+                        void trm_main::save_inputs(const string& input_file)
+                        {
+                            log(BASIC) << "Saving input/results file '" << input_file << "' started.";
+                            XMLElement *root_elem = xmldoc.FirstChildElement("TRM");
+                        
+                            XMLElement *log_file_elem = out.create_element(root_elem, "LogFile", true);
+                            log_file_elem->SetAttribute("filePrefix", log.get_file_prefix().c_str());
+                            log_file_elem->SetAttribute("fileSuffix", log.get_file_suffix().c_str());
+                        
+                            trans.serialize();
+                            react.serialize();
+                        
+                            XMLError result = xmldoc.SaveFile(input_file.c_str());
+                            if (result != tinyxml2::XML_SUCCESS) {
+                                throw trm_error("Saving of input XML file failed.");
+                            }
+                            log(BASIC) << "Saving input/results file '" << input_file << "' ended.";
+                        }
+                        
+                    </code></pre>
+                    <p><strong>Jak to funguje?</strong>     Vytvoří XML dokument, pokud neexistuje.
+                        Uloží nastavení logování.
+                        Serializuje data transportu a reakcí (trans.serialize(), react.serialize()).
+                        Uloží do souboru pomocí xmldoc.SaveFile(input_file.c_str()).</p>
+                </div>
+            </div>
+        
         </section>
-
+        
 
     </main>
 
