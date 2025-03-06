@@ -47,7 +47,7 @@
         
             <!-- TRM -->
             <div class="method-group">
-                <button class="group-toggle" onclick="toggleGroup('trm')">📂 trm.h</button>
+                <button class="group-toggle" onclick="toggleGroup('trm')">📂 trm.cpp</button>
                 <div class="method-group-details" id="trm">
             <div class="method" id="init_quantities">
                 <button class="method-toggle">➕ init_quantities()</button>
@@ -218,11 +218,11 @@
     </div>
 <!-- TRM_MODULE -->
 <div class="method-group">
-    <button class="group-toggle" onclick="toggleGroup('trm_module')">📂 trm_module.h</button>
+    <button class="group-toggle" onclick="toggleGroup('trm_module')">📂 trm_module.cpp</button>
     <div class="method-group-details" id="trm_module">
         
         <div class="method" id="calc_component_chars">
-            <button class="method-toggle">calc_component_chars()</button>
+            <button class="method-toggle">➕ calc_component_chars()</button>
             <div class="method-details">
                 <p><strong>Popis:</strong> Tato metoda počítá minimální a maximální hodnoty všech komponent v dané kategorii.</p>
                 
@@ -254,7 +254,7 @@ void trm_module::calc_component_chars(const std::string& category) {
         </div>
 
         <div class="method" id="load_time">
-            <button class="method-toggle">load_time()</button>
+            <button class="method-toggle">➕ load_time()</button>
             <div class="method-details">
                 <p><strong>Popis:</strong> Načte nastavení času z XML souboru a inicializuje časové kroky.</p>
                 
@@ -292,31 +292,186 @@ void trm_module::load_time(XMLElement *time_elem) {
     </div>
 </div>
     
-        <!-- TRM_REACT -->
-        <div class="method-group">
-            <button class="group-toggle" onclick="toggleGroup('trm_react')">📂 trm_react.h</button>
-            <div class="method-group-details" id="trm_react">
-                <div class="method" id="activate">
-                    <button class="method-toggle">activate()</button>
-                    <div class="method-details">
-                        <p><strong>Popis:</strong> Aktivuje počáteční podmínky pro reakce.</p>
-                        <pre><code>
-    void reaction_module::activate(...) {
-        log(BASIC) << "Reaction module activated.";
+<!-- TRM_REACT -->
+<div class="method-group">
+    <button class="group-toggle" onclick="toggleGroup('trm_react')">📂 trm_react.cpp</button>
+    <div class="method-group-details" id="trm_react">
+
+        <div class="method" id="activate_boundary_conditions">
+            <button class="method-toggle">➕ activate_boundary_conditions()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Aktivuje okrajové podmínky pro reakční modul a vypočítá jejich koncentrace.</p>
+                <pre><code>
+void reaction_module::activate_boundary_conditions(
+    vector<string>& component_names, vector_values& bound_cond_vec,
+    map<unsigned, vector<double>>& boundary_concs, unsigned bc_time) {
+
+    if (has_state(DISABLED)) return;
+
+    try {
+        log(BASIC) << "Activation of boundary conditions by the reaction module started.";
+
+        for (auto& bcond : boundary_conditions) {
+            phreeq->RunString(false, true, false, "DELETE; -all");
+            phreeq->RunFile(false, true, false, bcond.second);
+
+            istringstream iss(bcond.first);
+            double bound_id;
+            iss >> bound_id;
+
+            vector<unsigned> indexes_for_bound = bound_cond_vec.find_which_equals(bound_id);
+            vector<int> indexes_for_bound_int(indexes_for_bound.begin(), indexes_for_bound.end());
+
+            if (!indexes_for_bound.empty()) {
+                vector<double> boundary_concentrations;
+                vector<int> boundary_cond(1, -1);
+                phreeq->InitialPhreeqc2Concentrations(boundary_concentrations, boundary_cond);
+                phreeq->RunString(false, true, false, "DELETE; -all");
+
+                for (auto& index : indexes_for_bound_int) {
+                    boundary_concs[index] = boundary_concentrations;
+                }
+                log(BASIC) << "Boundary conditions set from file '" << bcond.second << "' for time " << bc_time << ".";
+            }
+        }
+        component_names = phreeq->GetComponents();
+        log(BASIC) << "Activation of boundary conditions by the reaction module ended.";
     }
-                        </code></pre>
-                    </div>
-                </div>
+    catch (PhreeqcRMStop& stop) {
+        throw trm_error("PhreeqcRM error:\n" + phreeq->GetErrorString() + "Activation of the reaction module failed.");
+    }
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Načítá soubory s okrajovými podmínkami, přidává odpovídající koncentrace pro buňky a předává je do Phreeqc.</p>
+
             </div>
         </div>
-    
+
+        <div class="method" id="activate">
+            <button class="method-toggle">➕ activate()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Aktivuje reakční modul pro dané buňky a inicializuje počáteční podmínky.</p>
+                
+                <pre><code>
+void reaction_module::activate(
+    vector<double>& concentrations, vector<string>& component_names, vector_values& init_cond_vec,
+    arma::mat in_component_data, unsigned bc_time, double time, component &mapping_component) {
+
+    if (has_state(DISABLED)) return;
+
+    try {
+        log(BASIC) << "Activation of the reaction module started.";
+
+        if (bc_time == 0) {
+            clustering_coeffs.clear();
+            double curr_coeff = mapping_component.get_clustering_coeff();
+            if (!isnan(curr_coeff)) {
+                clustering_coeffs["mapping"] = curr_coeff;
+            }
+
+            for (auto& comp_for_factors : components_for_factors) {
+                curr_coeff = comp_for_factors.second->get_clustering_coeff();
+                if (!isnan(curr_coeff)) {
+                    clustering_coeffs[comp_for_factors.first] = curr_coeff;
+                }
+            }
+
+            phreeq->RunString(true, true, true, "DELETE; -all");
+            for (auto& icond : initial_conditions) {
+                phreeq->RunFile(false, true, false, icond.second);
+
+                istringstream iss(icond.first);
+                double cond_id;
+                iss >> cond_id;
+                vector<unsigned> indexes_for_cond = init_cond_vec.find_which_equals(cond_id);
+                vector<int> indexes_for_cond_int(indexes_for_cond.begin(), indexes_for_cond.end());
+
+                if (!indexes_for_cond.empty()) {
+                    phreeq->InitialPhreeqcCell2Module(-1, indexes_for_cond_int);
+                    log(BASIC) << "Initial conditions set from file '" + icond.second + "'.";
+                }
+                phreeq->RunString(false, true, false, "DELETE; -all");
+            }
+
+            phreeq->SetTime(0.0);
+            phreeq->SetTimeStep(0.0);
+            phreeq->RunCells();
+
+            component_names = phreeq->GetComponents();
+            phreeq->GetConcentrations(concentrations);
+
+            log(BASIC) << "Activation of the reaction module ended.";
+        }
+    }
+    catch (PhreeqcRMStop& stop) {
+        throw trm_error("PhreeqcRM error:\n" + phreeq->GetErrorString() + "Activation of the reaction module failed.");
+    }
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Načítá počáteční podmínky, nastavuje faktory pro výpočty a spouští Phreeqc.</p>
+            </div>
+        </div>
+
+        <div class="method" id="react_calculate">
+            <button class="method-toggle">➕ calculate()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Vypočítává reakční modul pro daný časový krok.</p>
+                
+                <pre><code>
+void reaction_module::calculate(
+    unsigned t_index, double time, double time_step, vector<double>& concentrations, 
+    vector<string>& names, vector<double>& mapping) {
+
+    if (has_state(DISABLED) || has_state(DISABLED_CALCULATION)) return;
+
+    try {
+        set_factors(false, mapping, concentrations, names);
+
+        ostringstream oss;
+        oss << t_index;
+        string t_index_str = oss.str();
+        set_properties(t_index_str);
+
+        phreeq->SetPrintChemistryOn(sett.get_bool("writeOutput") && output_phreeq->is_step_for_output(t_index, time_end_id), false, false);
+        phreeq->SetSelectedOutputOn(output->is_step_for_output(t_index, time_end_id) || !clustering_coeffs.empty());
+
+        if (!clustering_coeffs.empty()) {
+            set_mapping();
+        }
+
+        phreeq->SetConcentrations(concentrations);
+        phreeq->SetTimeStep(time_step);
+        phreeq->SetTime(time);
+        phreeq->RunCells();
+        phreeq->GetConcentrations(concentrations);
+
+        if (output->is_step_for_output(t_index, time_end_id)) {
+            store_results(t_index, time, concentrations, names);
+        }
+        if (output_observation->is_step_for_output(t_index, time_end_id)) {
+            save_observations(t_index);
+        }
+    }
+    catch (PhreeqcRMStop& stop) {
+        throw trm_error("PhreeqcRM error:\n" + phreeq->GetErrorString() + 
+        "Calculation of the reaction module failed in time step '" << t_index << "' (time " << time << ").");
+    }
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Phreeqc provádí výpočty na základě koncentrací a okrajových podmínek.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
         <!-- TRM_TRANS -->
 <div class="method-group">
-    <button class="group-toggle" onclick="toggleGroup('trm_trans')">📂 trm_trans.h</button>
+    <button class="group-toggle" onclick="toggleGroup('trm_trans')">📂 trm_trans.cpp</button>
     <div class="method-group-details" id="trm_trans">
 
         <div class="method" id="init_grid_flow">
-            <button class="method-toggle">init_grid_flow()</button>
+            <button class="method-toggle">➕ init_grid_flow()</button>
             <div class="method-details">
                 <p><strong>Popis:</strong> Inicializuje matice toků v gridu.</p>
                 
@@ -371,8 +526,8 @@ void transport_module::init_grid_flow(unsigned bc_time) {
             </div>
         </div>
 
-        <div class="method" id="calculate">
-            <button class="method-toggle">calculate()</button>
+        <div class="method" id="trans_calculate">
+            <button class="method-toggle">➕ calculate()</button>
             <div class="method-details">
                 <p><strong>Popis:</strong> Hlavní výpočet transportních komponent.</p>
                 
@@ -399,22 +554,115 @@ void transport_module::calculate(unsigned t_index, double time, vector<double>& 
 </div>
     
         <!-- TRM_INOUT -->
-        <div class="method-group">
-            <button class="group-toggle" onclick="toggleGroup('trm_inout')">📂 trm_inout.h</button>
-            <div class="method-group-details" id="trm_inout">
-                <div class="method" id="serialize">
-                    <button class="method-toggle">serialize()</button>
-                    <div class="method-details">
-                        <p><strong>Popis:</strong> Ukládá data do XML souboru.</p>
-                        <pre><code>
-    void outputter::serialize(...) {
-        log(BASIC) << "Saving results to XML.";
+<div class="method-group">
+    <button class="group-toggle" onclick="toggleGroup('trm_inout')">📂 trm_inout.cpp</button>
+    <div class="method-group-details" id="trm_inout">
+
+        <div class="method" id="load_output_settings">
+            <button class="method-toggle">➕ load_output_settings()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Načítá nastavení výstupních souborů z XML souboru.</p>
+                <pre><code>
+void outputter::load_output_settings(XMLElement *result_file_elem, const string& tag_name)
+{
+    XMLElement *output_elem = get_child_elem(result_file_elem, tag_name);
+    string filename = get_attr(result_file_elem, "filename");
+    type = tag_name;
+    string use_observation_str = get_attr(result_file_elem, "useObservation", false);
+    bool use_observation = use_observation_str.empty() ? false : get_attr_boolean(result_file_elem, "useObservation", true);
+
+    set_values(get_attr(output_elem, "writeCells"), get_attr(output_elem, "writeSteps"), 
+        get_attr(result_file_elem, "directoryPath"), get_attr_boolean(result_file_elem, "useCsvSubdirs", false), 
+        use_observation, trim_string(filename));
+
+    set_cell_ids(get_attrs_from_children_unsigned(output_elem, "WriteCell", "id"));
+    set_step_ids(get_attrs_from_children_unsigned(output_elem, "WriteStep", "id"));
+
+    if (get_child_elem(output_elem, "LoopStep", false) != nullptr) {
+        loop_step = get_child_elem_unsigned(output_elem, "LoopStep");
     }
-                        </code></pre>
-                    </div>
-                </div>
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Extrahuje cesty, typy výstupních souborů a další nastavení z XML uzlu a ukládá je do objektu `outputter`.</p>
+
             </div>
         </div>
+
+        <div class="method" id="set_values">
+            <button class="method-toggle">➕ set_values()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Nastavuje vlastnosti výstupních souborů, jako jsou adresáře, typy výstupů a formáty souborů.</p>
+                <pre><code>
+void outputter::set_values(const string& cell_output_type, const string& step_output_type, 
+    const string& directory, bool use_csv_subdirs, bool use_observation, const string& file_name)
+{
+    vector<string> tmp_types { "none", "all" };
+    if (!is_transport()) {
+        tmp_types.push_back("list");
+    }
+    if (find(tmp_types.begin(), tmp_types.end(), cell_output_type) == tmp_types.end()) {
+        throw trm_error("Invalid cell output type '" + cell_output_type + "'.");
+    }
+    this->cell_output_type = cell_output_type;
+
+    tmp_types.push_back("list");
+    tmp_types.push_back("last");
+    if (find(tmp_types.begin(), tmp_types.end(), step_output_type) == tmp_types.end()) {
+        throw trm_error("Invalid step output type '" + step_output_type + "'.");
+    }
+    this->step_output_type = step_output_type;
+
+    this->use_csv_subdirs = use_csv_subdirs;
+    this->use_observation = use_observation;
+    set_dir_file(directory, file_name);
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Kontroluje, zda jsou zadané typy platné, a nastavuje odpovídající vlastnosti pro ukládání výstupů.</p>
+
+            </div>
+        </div>
+
+        <div class="method" id="mat_to_csv">
+            <button class="method-toggle">➕ mat_to_csv()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Ukládá matici dat do CSV souboru.</p>
+                <pre><code>
+void outputter::mat_to_csv(arma::mat mat, string file_name, bool adapt_size, unsigned nrows, unsigned ncols)
+{
+    arma::mat export_mat(mat);
+    if (cell_output_type == "list") {
+        export_mat.resize(0, 0);
+        for (auto row_id : cell_ids) {
+            if (row_id > mat.n_rows) {
+                throw trm_error("Cell index for results is out of data range.");
+            }
+            export_mat = join_cols(export_mat, mat.row(row_id - 1)); // cell_ids jsou indexovány od 1
+        }
+    }
+    else if (adapt_size) {
+        if (nrows * ncols != mat.n_elem) {
+            throw trm_error("Number of matrix elements does not fit to the given size.");
+        }
+        export_mat.resize(nrows, ncols);
+        unsigned i = 0;
+        for (unsigned r = 0; r < nrows; r++) {
+            for (unsigned c = 0; c < ncols; c++) {
+                export_mat(r, c) = mat(i, 0);
+                i++;
+            }
+        }
+    }
+    export_mat.save(file_name, arma::csv_ascii);
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Zajišťuje správné formátování matice, případně ji přizpůsobuje požadované velikosti, a poté ji ukládá do souboru.</p>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
     </section>
         
 

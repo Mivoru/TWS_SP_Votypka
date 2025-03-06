@@ -4,7 +4,7 @@ from gtts import gTTS
 texts = {
     "osm_explanation.mp3": "Metoda štěpení operátoru je numerická technika, která rozděluje složitou úlohu na dvě jednodušší části: transportní a reakční. Transportní část popisuje pohyb látky v prostředí, zatímco reakční část řeší chemické přeměny. Tato metoda umožňuje efektivnější výpočty, protože na každou část lze použít specializovanou numerickou metodu. Například pro transport se často používá metoda konečných diferencí a pro reakce metoda Runge-Kutta.",
     
-    "fdm_explanation.mp3": "Metoda konečných diferencí nahrazuje derivace ve diferenciálních rovnicích diskrétními rozdíly mezi body sítě. Pro výpočet hodnoty v dalším časovém kroku se používají sousední body mřížky. Tato metoda je běžně využívána v transportních modelech, kde umožňuje aproximovat časový a prostorový vývoj koncentrací rozpuštěných látek.",
+    "fdm_explanation.mp3": "Metoda konečných diferencí nahrazuje derivace v diferenciálních rovnicích diskrétními rozdíly mezi body sítě. Pro výpočet hodnoty v dalším časovém kroku se používají sousední body mřížky. Tato metoda je běžně využívána v transportních modelech, kde umožňuje aproximovat časový a prostorový vývoj koncentrací rozpuštěných látek.",
     
     "fvm_explanation.mp3": "Metoda konečných objemů je založena na zákonu zachování hmoty. Celková změna veličiny uvnitř každé výpočetní buňky je dána tokem přes její hranice. Tato metoda je obzvláště užitečná v transportních modelech, protože zajišťuje numerickou stabilitu a zachování celkové hmotnosti látky v systému.",
     
