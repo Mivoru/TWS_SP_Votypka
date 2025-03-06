@@ -28,15 +28,26 @@ document.addEventListener("DOMContentLoaded", function () {
     function toggleMethod(id) {
         const details = document.querySelector(`#${id} .method-details`);
         if (!details) return;
-
         details.style.display = details.style.display === "block" ? "none" : "block";
     }
 
-    // Přidáme posluchače na všechna tlačítka metod
+    function toggleGroup(id) {
+        const group = document.getElementById(id);
+        if (!group) return;
+        group.style.display = group.style.display === "block" ? "none" : "block";
+    }
+
     document.querySelectorAll(".method-toggle").forEach(button => {
         button.addEventListener("click", function () {
             const id = this.parentElement.id;
             toggleMethod(id);
+        });
+    });
+
+    document.querySelectorAll(".group-toggle").forEach(button => {
+        button.addEventListener("click", function () {
+            const id = this.nextElementSibling.id;
+            toggleGroup(id);
         });
     });
 

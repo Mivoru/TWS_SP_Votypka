@@ -486,6 +486,30 @@ pre {
     overflow-x: auto;
 }
 
+.method-group {
+    margin-bottom: 10px;
+}
+
+.group-toggle {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    background: #4a4a4a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.group-toggle:hover {
+    background: #333;
+}
+
+.method-group-details {
+    display: none;
+    padding-left: 20px;
+}
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }

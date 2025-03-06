@@ -45,6 +45,10 @@
         <section id="method-list">
             <h2>Seznam metod</h2>
         
+            <!-- TRM -->
+            <div class="method-group">
+                <button class="group-toggle" onclick="toggleGroup('trm')">📂 trm.h</button>
+                <div class="method-group-details" id="trm">
             <div class="method" id="init_quantities">
                 <button class="method-toggle">➕ init_quantities()</button>
                 <div class="method-details">
@@ -210,8 +214,208 @@
                         Uloží do souboru pomocí xmldoc.SaveFile(input_file.c_str()).</p>
                 </div>
             </div>
+        </div>
+    </div>
+<!-- TRM_MODULE -->
+<div class="method-group">
+    <button class="group-toggle" onclick="toggleGroup('trm_module')">📂 trm_module.h</button>
+    <div class="method-group-details" id="trm_module">
         
-        </section>
+        <div class="method" id="calc_component_chars">
+            <button class="method-toggle">calc_component_chars()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Tato metoda počítá minimální a maximální hodnoty všech komponent v dané kategorii.</p>
+                
+                <pre><code>
+void trm_module::calc_component_chars(const std::string& category) {
+    vector<unsigned> times = get_component_times(category);
+    vector<string> names = get_component_names(category);
+    for (auto& name : names) {
+        double tmp_min = numeric_limits<double>::max();
+        double tmp_max = numeric_limits<double>::lowest();
+        for (auto time : times) {
+            arma::mat data = get_component_data(category, name, time);
+            double data_min = data.min();
+            double data_max = data.max();
+            if (data_min < tmp_min) {
+                tmp_min = data.min();
+            }
+            if (data_max > tmp_max) {
+                tmp_max = data.max();
+            }
+        }
+        set_component_char(category, name, "min", tmp_min);
+        set_component_char(category, name, "max", tmp_max);
+    }
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Pro každou komponentu v kategorii projde dostupná časová data, spočítá minimum a maximum a tyto hodnoty uloží.</p>
+            </div>
+        </div>
+
+        <div class="method" id="load_time">
+            <button class="method-toggle">load_time()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Načte nastavení času z XML souboru a inicializuje časové kroky.</p>
+                
+                <pre><code>
+void trm_module::load_time(XMLElement *time_elem) {
+    set_time(
+        output->get_attr_unsigned(time_elem, "quantityID"), 
+        output->get_child_elem_double(time_elem, "Init"), 
+        output->get_child_elem_double(time_elem, "End"));
+
+    XMLElement *step_zero_elem = output->get_child_elem(time_elem, "Step");
+    unsigned zero_time_id = (output->get_attr(step_zero_elem, "idTimeStep", false) == "") ? 
+                             0 : output->get_attr_unsigned(step_zero_elem, "idTimeStep");
+
+    bc_times_steps.clear();
+    bc_times_steps[zero_time_id] = output->get_elem_double(step_zero_elem);
+
+    XMLElement *bc_changes_elem = output->get_child_elem(time_elem, "BorderCondChanges", false);
+    if (bc_changes_elem != nullptr) {
+        vector<XMLElement*> bc_step_elems = output->get_child_elems(bc_changes_elem, "Step", false);
+        for (auto step_elem : bc_step_elems) {
+            unsigned curr_bc_time = output->get_attr_unsigned(step_elem, "idTimeStep");
+            bc_times_steps[curr_bc_time] = output->get_elem_double(step_elem);
+        }
+    }
+    check_bc_change_times();
+    set_time_init_id();
+    set_time_end_id();
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Čte z XML elementy `Step` a `BorderCondChanges`, nastavuje časy a kroky změn okrajových podmínek.</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+    
+        <!-- TRM_REACT -->
+        <div class="method-group">
+            <button class="group-toggle" onclick="toggleGroup('trm_react')">📂 trm_react.h</button>
+            <div class="method-group-details" id="trm_react">
+                <div class="method" id="activate">
+                    <button class="method-toggle">activate()</button>
+                    <div class="method-details">
+                        <p><strong>Popis:</strong> Aktivuje počáteční podmínky pro reakce.</p>
+                        <pre><code>
+    void reaction_module::activate(...) {
+        log(BASIC) << "Reaction module activated.";
+    }
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- TRM_TRANS -->
+<div class="method-group">
+    <button class="group-toggle" onclick="toggleGroup('trm_trans')">📂 trm_trans.h</button>
+    <div class="method-group-details" id="trm_trans">
+
+        <div class="method" id="init_grid_flow">
+            <button class="method-toggle">init_grid_flow()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Inicializuje matice toků v gridu.</p>
+                
+                <pre><code>
+void transport_module::init_grid_flow(unsigned bc_time) {
+    if (grid_flow.find(bc_time) == grid_flow.end()) {
+        component tmp_component;
+        tmp_component.set_metadata("", "", "sparseMatrix", "double", "4");
+        grid_flow[bc_time] = tmp_component;
+    }
+
+    arma::sp_mat tmp_grid_flow = grid_flow[bc_time].get_data_sparse();
+    if (tmp_grid_flow.n_elem != get_cell_count("GridFlow")) {
+        check_conductivity();
+        if (position1.n_elem == 0) {
+            calc_positions(ncells);
+        }
+        if (hydraulic_head[bc_time].get_data().n_elem == 0) {
+            init_hydraulic_head(bc_time);
+        }
+        tmp_grid_flow.set_size(ncells, ncells);
+        tmp_grid_flow.zeros();
+
+        arma::sp_mat head_as_sp = arma::conv_to<arma::sp_mat>::from(hydraulic_head[bc_time].get_data());
+        arma::sp_mat flow1 = position1 * head_as_sp;
+        arma::sp_mat flow2 = position2 * head_as_sp;
+        arma::sp_mat flow3 = position3 * head_as_sp;
+        arma::sp_mat flow4 = position4 * head_as_sp;
+
+        for (unsigned i = 0; i < ncells; i++) {
+            for (unsigned j = 0; j < ncells; j++) {
+                if (j == i - ncols && i > ncols - 1) {
+                    tmp_grid_flow(i, j) += -flow3(j + ncols, 0);
+                }
+                if (j == i - 1 && i % ncols > 0) {
+                    tmp_grid_flow(i, j) += -flow1(j + 1, 0);
+                }
+                if (j == i + 1 && j % ncols > 0) {
+                    tmp_grid_flow(i, j) += -flow2(j - 1, 0);
+                }
+                if (j == i + ncols) {
+                    tmp_grid_flow(i, j) += -flow4(j - ncols, 0);
+                }
+            }
+        }
+        grid_flow[bc_time].set_data_sparse(tmp_grid_flow, false, true);
+        log(BASIC) << "Grid flow initialized for BC time " << bc_time;
+    }
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Vytvoří sparse matici pro `grid_flow`, pokud ještě není definována, a následně naplní hodnotami na základě hydraulické hlavy.</p>
+            </div>
+        </div>
+
+        <div class="method" id="calculate">
+            <button class="method-toggle">calculate()</button>
+            <div class="method-details">
+                <p><strong>Popis:</strong> Hlavní výpočet transportních komponent.</p>
+                
+                <pre><code>
+void transport_module::calculate(unsigned t_index, double time, vector<double>& concentrations, 
+    vector<string>& component_names, unsigned curr_bc_time, vector<double>& mapping, double curr_time_step) {
+
+    if (has_state(DISABLED) || has_state(DISABLED_CALCULATION)) return;
+
+    transport_components_mat += volume_diag_inverse * (in_out_flow_modif * in_comps * curr_time_step + 
+        grid_flow_modif * transport_components_mat * curr_time_step + 
+        diff_flows_mat * transport_components_mat * diff_coeffs_mat * curr_time_step + 
+        in_out_diff_mat * in_comps * diff_coeffs_mat * curr_time_step);
+
+    mapping = arma::conv_to<vector<double>>::from(transport_components_mat.col(0));
+
+    log(BASIC) << "Transport for time step ID '" << t_index << "' (time " << time << ") calculated.";
+}
+                </code></pre>
+                <p><strong>Jak funguje:</strong> Probíhá výpočet toků a koncentrací pomocí diferenciálních rovnic a maticových operací.</p>
+            </div>
+        </div>
+    </div>
+</div>
+    
+        <!-- TRM_INOUT -->
+        <div class="method-group">
+            <button class="group-toggle" onclick="toggleGroup('trm_inout')">📂 trm_inout.h</button>
+            <div class="method-group-details" id="trm_inout">
+                <div class="method" id="serialize">
+                    <button class="method-toggle">serialize()</button>
+                    <div class="method-details">
+                        <p><strong>Popis:</strong> Ukládá data do XML souboru.</p>
+                        <pre><code>
+    void outputter::serialize(...) {
+        log(BASIC) << "Saving results to XML.";
+    }
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
         
 
     </main>
