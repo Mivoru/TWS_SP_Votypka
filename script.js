@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.querySelector(".menu-toggle");
     const navMenu = document.querySelector(".nav-menu");
 
-
-    // 📌 Načtení Lottie.js pro animaci ikon
+    // Načtení Lottie.js pro animaci ikon
     const script = document.createElement("script");
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js";
     document.head.appendChild(script);
@@ -17,14 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
         navMenu.classList.toggle("active");
     });
 
-    // 📌 Po kliknutí na odkaz menu automaticky zavřít
     document.querySelectorAll(".nav-menu a").forEach(link => {
         link.addEventListener("click", () => {
             navMenu.classList.remove("active");
         });
     });
 
-    
     function toggleMethod(id) {
         const details = document.querySelector(`#${id} .method-details`);
         if (!details) return;
@@ -57,28 +54,25 @@ document.addEventListener("DOMContentLoaded", function () {
             renderer: "svg",
             loop: false,
             autoplay: false, 
-            path: "animation/Animation - 1741020087118.json", // Výchozí ikona (světlý režim)
+            path: "animation/Animation - 1741020087118.json",
         });
 
-        // 📌 Spustit animaci při najetí myší
         settingsIcon.addEventListener("mouseenter", () => {
             settingsAnimation.goToAndPlay(0, true);
         });
 
-        // 📌 Zastavit animaci při opuštění (volitelné)
         settingsIcon.addEventListener("mouseleave", () => {
             settingsAnimation.stop();
         });
 
-        // 📌 Aktualizace ikony podle režimu
         function updateIcon() {
             const theme = localStorage.getItem("theme") || "light";
-            let jsonPath = "animation/Animation - 1741020087118.json"; // Světlá verze
+            let jsonPath = "animation/Animation - 1741020087118.json";
 
             if (theme === "dark-mode") {
-                jsonPath = "animation/Animation - 1741020087118.json"; // Tmavá verze
+                jsonPath = "animation/Animation - 1741020087118.json";
             } else if (theme === "alt-mode") {
-                jsonPath = "animation/Animation - 1741019998037.json"; // Alternativní verze
+                jsonPath = "animation/Animation - 1741019998037.json";
             }
 
             settingsAnimation.destroy();
@@ -90,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 path: jsonPath,
             });
 
-            // 📌 Přidání posluchačů pro nový objekt animace
             settingsIcon.addEventListener("mouseenter", () => {
                 settingsAnimation.goToAndPlay(0, true);
             });
@@ -100,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // 📌 Přepnutí režimu a změna textu tlačítek
         function toggleTheme(theme) {
             document.body.classList.remove("dark-mode", "alt-mode");
 
@@ -115,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
             updateButtonText();
         }
 
-        // 📌 Aktualizace textu tlačítek podle aktuálního režimu
         function updateButtonText() {
             if (document.body.classList.contains("dark-mode")) {
                 darkModeToggle.textContent = "Světlý režim";
@@ -129,13 +120,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        // 📌 Aktualizace vzhledu patičky
         function updateFooterTheme() {
             footer.classList.toggle("dark-mode", document.body.classList.contains("dark-mode"));
             footer.classList.toggle("alt-mode", document.body.classList.contains("alt-mode"));
         }
 
-        // 📌 Aktualizace vzhledu audio přehrávačů
         function updateAudioTheme() {
             audioElements.forEach(audio => {
                 audio.style.transition = "background-color 0.4s ease, filter 0.4s ease";
@@ -149,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // 📌 Načtení uloženého režimu při načtení stránky
         function applySavedTheme() {
             const savedTheme = localStorage.getItem("theme") || "light";
             toggleTheme(savedTheme);
@@ -157,10 +145,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         applySavedTheme();
 
-        // 📌 Event listenery pro tlačítka přepínání režimů
         darkModeToggle?.addEventListener("click", () => {
             if (document.body.classList.contains("dark-mode")) {
-                toggleTheme("light"); // Přepnutí zpět na světlý režim
+                toggleTheme("light");
             } else {
                 toggleTheme("dark-mode");
             }
@@ -168,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         altModeToggle?.addEventListener("click", () => {
             if (document.body.classList.contains("alt-mode")) {
-                toggleTheme("light"); // Přepnutí zpět na světlý režim
+                toggleTheme("light");
             } else {
                 toggleTheme("alt-mode");
             }

@@ -1,3 +1,4 @@
+/* Base layout */
 html, body {
     height: 100%;
     margin: 0;
@@ -9,30 +10,30 @@ html, body {
     overflow-x: hidden;
 }
 
-/* 📌 Výchozí světlé schéma */
+/* Default light theme */
 body {
     background-color: #f0ede9;
     color: #3d3d3d;
 }
 
-/* 📌 Hlavička */
+/* Header styles */
 header {
     background: #5a5a5a;
     color: white;
     text-align: center;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    align-items: center; /* Zarovnání na střed vertikálně */
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
 header h1 {
     margin: 20px;
-    white-space: nowrap; /* Zabrání zalomení nadpisu */
+    white-space: nowrap;
 }
 
-/* 📌 Navigace */
+/* Navigation */
 nav ul {
     list-style: none;
     padding: 10px;
@@ -43,8 +44,6 @@ nav ul {
     background: #444;
     height: 50px;
     flex-wrap: wrap;
-   
-    
 }
 
 nav ul li {
@@ -53,11 +52,11 @@ nav ul li {
     justify-content: center;
     height: 100%;
 }
+
 nav ul li a::before {
     content: "╬"; 
     margin-right: 5px;
 }
-
 
 nav ul li a {
     border: 1px solid #444;
@@ -73,12 +72,12 @@ nav ul li a {
     height: 100%;
 }
 
-/* 📌 Hover efekt navigačních tlačítek */
+/* Navigation hover effect */
 nav ul li a:hover {
     background: #666;
 }
 
-/* 📌 Obsah stránky */
+/* Main content */
 main {
     flex: 1;
     padding: 20px;
@@ -92,16 +91,17 @@ main {
     border-radius: 8px;
     width: 100%;
     padding-bottom: 60px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 📌 Grid layout */
+/* Grid layout */
 .grid-layout {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
 
-/* 📌 Tmavý režim */
+/* Dark mode theme */
 .dark-mode {
     background-color: #2b2b2b;
     color: white;
@@ -119,7 +119,7 @@ main {
     background: #383838;
 }
 
-/* 📌 Alternativní režim */
+/* Alternative theme */
 .alt-mode {
     background-color: #f8e5cf;
     color: #4a3628;
@@ -130,7 +130,6 @@ main {
 }
 
 .alt-mode nav ul {
-    
     background: #a77c55;
 }
 
@@ -138,7 +137,7 @@ main {
     background: #fff4e1;
 }
 
-/* 📌 Tlačítka pro různé režimy */
+/* Theme-specific button styles */
 .dark-mode button {
     background: #444;
 }
@@ -151,13 +150,13 @@ main {
     background: #75491f;
 }
 
+/* Alternate mode navigation hover - more specific selector to avoid !important */
 .alt-mode nav ul li a:hover {
-    background: #75491f !important; 
+    background: #75491f;
     color: white;
 }
 
-
-/* 📌 Formulář */
+/* Form styles */
 form {
     background: #fff;
     padding: 20px;
@@ -171,7 +170,7 @@ form {
     box-sizing: border-box;
 }
 
-/* 📌 Formulář - Tmavý a alternativní režim */
+/* Form styles for different themes */
 .dark-mode form {
     background: #333;
     color: white;
@@ -182,7 +181,7 @@ form {
     color: #663300;
 }
 
-/* 📌 Formulář - Skupiny polí */
+/* Form elements */
 .form-group {
     margin-bottom: 15px;
     display: flex;
@@ -195,26 +194,27 @@ label {
 }
 
 input, textarea, select {
-    width: 100%; /* Zajistí, že pole se neroztáhne mimo fieldset */
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Oprava přetečení */
+    box-sizing: border-box;
     background: white;
     color: #333;
 }
 
-/* 📌 Checkbox správně zarovnaný */
+/* Checkbox styling */
 .form-group input[type="checkbox"] {
     width: 18px;
     height: 18px;
     margin: 0;
 }
 
+/* Table styling */
 table {
     width: 100%; 
-    max-width: 100%; /* Zabrání roztahování stránky */
-    overflow-x: auto; /* Povolit posouvání místo roztažení */
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 th, td {
@@ -237,7 +237,7 @@ th {
     color: white;
 }
 
-/* 📌 Obrázky */
+/* Image styling */
 img {
     max-width: 100%;
     height: auto;
@@ -245,7 +245,7 @@ img {
     margin: auto;
 }
 
-/* 📌 Patička */
+/* Footer */
 footer {
     text-align: center;
     padding: 10px;
@@ -266,30 +266,31 @@ footer {
     color: white;
 }
 
-/* 📌 Audio */
+/* Audio element styling */
 audio {
     width: 100%;
     max-width: 400px;
-    background-color: var(--bg-color);
     border-radius: 50px;
     padding: 5px;
     box-shadow: 2px 6px 12px rgba(82, 82, 82, 0.2);
 }
 
+/* Audio theme-specific styling */
 .light-mode audio {
-    --bg-color: #f0f0f0;
+    background-color: #f0f0f0;
     filter: invert(0);
 }
 
 .dark-mode audio {
-    --bg-color: #333;
+    background-color: #333;
     filter: invert(1);
 }
 
+/* Fieldset styling */
 fieldset {
     width: 100%;
     max-width: 800px;
-    box-sizing: border-box; /* Zajistí, že padding nebude přičítán k šířce */
+    box-sizing: border-box;
     margin: 0;
     padding: 1em;
     border: 1px solid #ccc;
@@ -299,31 +300,30 @@ fieldset {
     gap: 10px;
 }
 
+/* Section styling */
 section {
     background: #ffffff;
     padding: 20px;
-    margin: 20px auto; /* Zarovná na střed */
+    margin: 20px auto;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     width: 95%;
-    max-width: 1000px; /* Zvýšená maximální šířka pro sjednocení */
-    box-sizing: border-box; /* Zabrání roztahování kvůli paddingu */
+    max-width: 1000px;
+    box-sizing: border-box;
 }
 
-
-/* 📌 Tmavý režim */
+/* Section theme-specific styling */
 .dark-mode section {
     background: #444;
     color: white;
 }
 
-/* 📌 Alternativní režim */
 .alt-mode section {
     background: #ffe4b5;
     color: #663300;
 }
 
-/* 📌 Hover efekt */
+/* Hover effects */
 .settings-buttons button:hover {
     transform: scale(1.05);
 }
@@ -337,25 +337,21 @@ section {
     background: #555;
 }
 
-/* 📌 Alternativní režim */
 .alt-mode .settings-buttons button {
-    background: #a77c55; /* Béžovo-hnědá */
+    background: #a77c55;
     color: white;
 }
 
 .alt-mode .settings-buttons button:hover {
-    background: #75491f; /* Tmavší hnědý odstín */
+    background: #75491f;
 }
 
-main {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-
+/* Font styling */
 body {
-    font-family: 'CustomFont', Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
+/* Figure and image styling */
 figure, img {
     display: block;
     max-width: 80%;
@@ -370,14 +366,17 @@ figure {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-/* 📌 Hover efekt pro obrázky */
-figure img:hover {
-    transform: scale(1.02); /* Mírné zvětšení */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Zvýrazněný stín */
+/* Image hover effect */
+figure img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 📌 Popisek obrázku */
+figure img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Figure caption */
 figcaption {
     margin-top: 10px;
     font-style: italic;
@@ -385,6 +384,7 @@ figcaption {
     font-size: 0.9rem;
 }
 
+/* Button styling */
 button, .settings-buttons button {
     background: #777;
     color: white;
@@ -396,6 +396,7 @@ button, .settings-buttons button {
     transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
+/* Settings container */
 .settings-container {
     position: absolute;
     top: 10px;
@@ -413,7 +414,7 @@ button, .settings-buttons button {
     height: 50px;
 }
 
-/* Skrytí tlačítek na začátku */
+/* Settings buttons */
 .settings-buttons {
     position: absolute;
     top: 60px;
@@ -431,16 +432,19 @@ button, .settings-buttons button {
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Zobrazení tlačítek při najetí */
+/* Show settings buttons on hover */
 .settings-container:hover .settings-buttons {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
 }
 
+/* Mobile menu toggle button */
 .menu-toggle {
-    display: none; /* Na větších obrazovkách bude skryté */
+    display: none;
 }
+
+/* Method container */
 .method {
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -479,6 +483,7 @@ button, .settings-buttons button {
     color: #663300;
 }
 
+/* Code blocks */
 pre {
     background: #222;
     color: #fff;
@@ -486,6 +491,7 @@ pre {
     overflow-x: auto;
 }
 
+/* Method groups */
 .method-group {
     margin-bottom: 10px;
 }
@@ -510,22 +516,28 @@ pre {
     padding-left: 20px;
 }
 
-
+/* Animations */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
+/* Media Queries */
 @media (max-width: 1024px) {
     main {
         width: 95%;
     }
 }
 
-/* 📌 Mobilní stylování pro navigaci */
 @media (max-width: 768px) {
     nav ul {
-        flex-direction: column; /* Navigační prvky na sebe */
+        flex-direction: column;
         align-items: center;
         height: auto;
         padding: 10px 0;
@@ -539,10 +551,10 @@ pre {
     nav ul li a {
         width: 90%;
         padding: 15px;
-        font-size: 1rem; /* Lepší čitelnost */
+        font-size: 1rem;
     }
 
-    /* 📌 Skrytí navigace a přidání burger menu */
+    /* Navigation menu for mobile */
     .nav-menu {
         display: none;
         flex-direction: column;
@@ -559,7 +571,7 @@ pre {
         display: flex;
     }
 
-    /* 📌 Styl burger tlačítka */
+    /* Hamburger menu button */
     .menu-toggle {
         display: flex;
         align-items: center;
@@ -573,3 +585,30 @@ pre {
     }
 }
 
+/* Print styles */
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+    
+    header, nav, footer, .settings-container {
+        display: none;
+    }
+    
+    main {
+        box-shadow: none;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    a {
+        color: black;
+        text-decoration: none;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+}
