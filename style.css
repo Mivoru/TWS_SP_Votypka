@@ -277,6 +277,25 @@ footer {
     color: white;
 }
 
+footer a {
+    color: #ffffff; 
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #ffcc00; 
+}
+
+.dark-mode footer a {
+    color: #ffcc00; 
+}
+
+.alt-mode footer a {
+    color: #5a3d1e; 
+}
+
+
 /* Audio element styling */
 audio {
     width: 100%;
