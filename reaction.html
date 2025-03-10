@@ -13,7 +13,6 @@
         <div class="settings-container">
             <div id="settingsIcon"></div> 
             <div class="settings-buttons hidden">
-                <button id="toggle-layout">Přepnout rozložení</button>
                 <button id="dark-mode-toggle">Tmavý režim</button>
                 <button id="alt-mode-toggle">Alternativní režim</button>
             </div>
@@ -29,24 +28,21 @@
             </ul>
         </nav>
     </header>
-    
 
     <main>
         <section>
             <h2>Typy chemických reakcí</h2>
+            <p>Reakční model TRM 2D umožňuje simulaci chemických interakcí mezi složkami podzemní vody. Obsahuje:</p>
             <ul>
-                <li>Rozpouštění</li>
-                <li>Redoxní reakce</li>
-                <li>Iontová výměna</li>
+                <li><strong>Rozpouštění a srážení</strong> – např. rozpouštění minerálů (kalcit, dolomit).</li>
+                <li><strong>Redoxní reakce</strong> – změna oxidačních stavů prvků.</li>
+                <li><strong>Iontová výměna</strong> – výměna iontů mezi kapalinou a pevnou fází.</li>
             </ul>
-        </section>
-        <section>
-            <h2>Ukázkový výpočet reakčního modelu</h2>
-            <p>Uvažujme chemickou reakci rozpouštění kalcitu v přítomnosti oxidu uhličitého. Modelujeme ji soustavou diferenciálních rovnic, kde koncentrace vápníku, hydrogenuhličitanu a oxidu uhličitého v roztoku interagují podle kinetických a rovnovážných podmínek. Výpočet probíhá iterativně metodou Runge-Kutta, která umožňuje přesně simulovat změny koncentrací v čase.</p>
-            <audio controls>
-                <source src="audio/reaction_calculation.mp3" type="audio/mpeg">
-                Váš prohlížeč nepodporuje přehrávání audia.
-            </audio>
+            <p>Numerická řešení reakcí využívají:</p>
+            <ul>
+                <li>Metody Runge-Kutta pro řešení soustav diferenciálních rovnic.</li>
+                <li>Rovnovážné a kinetické modely pro chemické reakce.</li>
+            </ul>
             <figure>
                 <img src="images/chemicalReaction.png" alt="Chemical Reaction" loading="lazy">
                 <figcaption>Model chemických reakcí v podzemní vodě</figcaption>

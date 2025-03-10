@@ -13,12 +13,10 @@
         <div class="settings-container">
             <div id="settingsIcon"></div> 
             <div class="settings-buttons hidden">
-                <button id="toggle-layout">Přepnout rozložení</button>
                 <button id="dark-mode-toggle">Tmavý režim</button>
                 <button id="alt-mode-toggle">Alternativní režim</button>
             </div>
         </div>
-        
         <button class="menu-toggle">☰</button>
         <nav>
             <ul>
@@ -30,27 +28,24 @@
             </ul>
         </nav>
     </header>
-    
 
     <main>
         <section>
             <h2>Procesy transportu</h2>
+            <p>Transportní model TRM 2D simuluje pohyb rozpuštěných látek v podzemní vodě pomocí následujících fyzikálních procesů:</p>
             <ul>
-                <li>Advekce</li>
-                <li>Difuze</li>
-                <li>Mechanická disperze</li>
+                <li><strong>Advekce</strong> – transport látky prouděním podzemní vody.</li>
+                <li><strong>Difuze</strong> – šíření látek na základě koncentračních gradientů.</li>
+                <li><strong>Mechanická disperze</strong> – rozptyl látek v důsledku nehomogenit v porézním prostředí.</li>
             </ul>
-        </section>
-        <section>
-            <h2>Ukázkový výpočet transportního modelu</h2>
-            <p>Vezměme si jednoduchý transportní model popisující advekci látky v homogenním prostředí. Použijeme metodu konečných diferencí, kde rozdělením oblasti na síť o délce jednoho metru a časovým krokem 0,1 sekundy simulujeme postupné šíření látky. Výsledek ukazuje, jak se koncentrace vyvíjí v čase, přičemž vyšší rychlost proudění způsobuje rychlejší transport.</p>
-            <audio controls>
-                <source src="audio/transport_calculation.mp3" type="audio/mpeg">
-                Váš prohlížeč nepodporuje přehrávání audia.
-            </audio>
+            <p>Numerické metody použité v transportním modelu:</p>
+            <ul>
+                <li>Metoda konečných diferencí (FDM) – aproximace derivací pomocí diskrétních bodů.</li>
+                <li>Řešení pomocí explicitních a implicitních schémat pro časovou integraci.</li>
+            </ul>
             <figure>
                 <img src="images/fluidTransport.png" alt="Fluid Transport" loading="lazy">
-                <figcaption>Vizualizace procesů transportu tekutin</figcaption>
+                <figcaption>Simulace procesů transportu tekutin</figcaption>
             </figure>
         </section>
     </main>
