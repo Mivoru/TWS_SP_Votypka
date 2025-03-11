@@ -4,17 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const footer = document.querySelector("footer");
     const audioElements = document.querySelectorAll("audio");
     const settingsIcon = document.getElementById("settingsIcon");
-    const menuToggle = document.querySelector(".menu-toggle");
 
     // Načtení Lottie.js pro animaci ikon
     const script = document.createElement("script");
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js";
     document.head.appendChild(script);
-
-    menuToggle.addEventListener("click", function () {
-        navMenu.classList.toggle("active");
-    });
-
 
     function toggleMethod(id) {
         const details = document.querySelector(`#${id} .method-details`);

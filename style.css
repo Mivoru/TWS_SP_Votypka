@@ -506,10 +506,6 @@ button,
     pointer-events: auto;
 }
 
-/* Mobile menu toggle button */
-.menu-toggle {
-    display: none;
-}
 
 /* Method container */
 .method {
@@ -618,7 +614,6 @@ pre {
     transform: scale(1.05);
 }
 
-/* Přidání vizuálního odlišení odkazů ve tmavém režimu */
 .alt-mode .navigation-links a {
     background-color: #ffe4b5;
     color: #663300;
@@ -698,22 +693,6 @@ pre {
         z-index: 1000;
     }
 
-    .nav-menu.active {
-        display: flex;
-    }
-
-    /* Hamburger menu button */
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: white;
-        cursor: pointer;
-        padding: 10px;
-    }
 }
 
 /* Print styles */
