@@ -692,12 +692,12 @@ pre {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 1.8rem; 
+        font-size: 1.5rem; 
         line-height: 1.2; 
         max-width: 100%; 
         white-space: normal; 
     }
-    
+
     nav ul {
         flex-direction: column;
         align-items: center;
