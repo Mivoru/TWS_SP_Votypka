@@ -4,6 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const footer = document.querySelector("footer");
     const audioElements = document.querySelectorAll("audio");
     const settingsIcon = document.getElementById("settingsIcon");
+    const email = document.getElementById("email").value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        document.getElementById("emailError").textContent = "Neplatný e-mail.";
+        event.preventDefault(); // Zabrání odeslání formuláře
+    }
 
     // Načtení Lottie.js pro animaci ikon
     const script = document.createElement("script");
