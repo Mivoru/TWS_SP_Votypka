@@ -1,0 +1,61 @@
+[33m460a747[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: checkout: moving from main to main
+[33m460a747[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{1}: reset: moving to HEAD~
+[33m8937dfa[m HEAD@{2}: reset: moving to HEAD~
+[33m660af1b[m HEAD@{3}: reset: moving to HEAD~
+[33m72ce060[m HEAD@{4}: reset: moving to HEAD~
+[33m513a581[m HEAD@{5}: reset: moving to HEAD~
+[33m7c52ffd[m HEAD@{6}: reset: moving to HEAD~
+[33m08929e0[m HEAD@{7}: reset: moving to HEAD~
+[33md71c589[m HEAD@{8}: reset: moving to HEAD~
+[33m81fcb07[m HEAD@{9}: reset: moving to HEAD~
+[33md6e6f50[m HEAD@{10}: reset: moving to HEAD~
+[33m84b4068[m HEAD@{11}: reset: moving to HEAD~
+[33m026b446[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{12}: commit: ???
+[33m84b4068[m HEAD@{13}: commit: back
+[33md6e6f50[m HEAD@{14}: commit: script
+[33m81fcb07[m HEAD@{15}: commit: back
+[33md71c589[m HEAD@{16}: commit: rollback
+[33m08929e0[m HEAD@{17}: commit: h1 update v2
+[33m7c52ffd[m HEAD@{18}: commit: h1 upd
+[33m513a581[m HEAD@{19}: commit: email validation
+[33m72ce060[m HEAD@{20}: commit: h1 align
+[33m660af1b[m HEAD@{21}: commit: table contrast
+[33m8937dfa[m HEAD@{22}: commit: delete burger button
+[33m460a747[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{23}: commit: add features
+[33m1a1fd28[m HEAD@{24}: commit: better design and cleaning code
+[33meaed44f[m HEAD@{25}: commit: maybe finished?
+[33m876ebb7[m HEAD@{26}: commit: final validation touches
+[33mf0ff58a[m HEAD@{27}: commit: contrast adjustment
+[33m6ed2ee7[m HEAD@{28}: commit: button contrast
+[33me7aeb30[m HEAD@{29}: commit: contact colors
+[33mbe6e500[m HEAD@{30}: commit: final touches
+[33m856bb7d[m HEAD@{31}: commit: expand some files and few final touches
+[33m4d7fa7f[m HEAD@{32}: commit: methods
+[33m9359412[m HEAD@{33}: commit: mehods functions
+[33m89c35cc[m HEAD@{34}: commit: methods seznam
+[33m0f38262[m HEAD@{35}: commit: update space between main headline
+[33mf6f2959[m HEAD@{36}: commit: hide burger menu
+[33mf0011ba[m HEAD@{37}: commit: revert
+[33m7b85341[m HEAD@{38}: commit: revert changes
+[33m4ce8a72[m HEAD@{39}: commit: updte
+[33m06a2a0c[m HEAD@{40}: commit: update
+[33m25af5df[m HEAD@{41}: commit: update for mobile
+[33md7d87ca[m HEAD@{42}: commit: update @media for better accesebility
+[33ma32853f[m HEAD@{43}: commit: update changes for mobiles
+[33m0a884bc[m HEAD@{44}: commit: update css @media
+[33maa6dd35[m HEAD@{45}: commit: update flex direction for mobiles
+[33mdfe5184[m HEAD@{46}: commit: margin Header update
+[33m5594189[m HEAD@{47}: commit: headerUpdate
+[33m402ca5a[m HEAD@{48}: commit: update script to hide burger menu
+[33m77bb474[m HEAD@{49}: commit: burger menu only for mobiles
+[33m52de1b5[m HEAD@{50}: commit: menuButton for mobiles
+[33ma3c606b[m HEAD@{51}: commit: mobileResponzive
+[33mcbb74c2[m HEAD@{52}: commit: ColumnAlignMobile
+[33m51e3218[m HEAD@{53}: commit: mobileRes
+[33m758a541[m HEAD@{54}: commit: mobileChanges
+[33m04f11f5[m HEAD@{55}: commit: mobileChanges
+[33m1344cdd[m HEAD@{56}: commit: updateForMobiles
+[33m30607a1[m HEAD@{57}: commit: changeMedia
+[33m919de05[m HEAD@{58}: commit: css
+[33m25c9bd7[m HEAD@{59}: Branch: renamed refs/heads/main to refs/heads/main
+[33m25c9bd7[m HEAD@{61}: commit (initial): První commit
