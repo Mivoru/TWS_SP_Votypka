@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("emailError").textContent = "Neplatný e-mail.";
         event.preventDefault(); // Zabrání odeslání formuláře
     }
-    
+
 
     // Načtení Lottie.js pro animaci ikon
     const script = document.createElement("script");
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             navMenu.classList.remove("active");
         });
     });
+
 
     function toggleMethod(id) {
         const details = document.querySelector(`#${id} .method-details`);
