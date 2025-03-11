@@ -229,32 +229,55 @@ select {
 }
 
 /* Table styling */
-table {
+/* Obecné styly pro tabulku */
+.styled-table {
+    border-collapse: collapse;
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
 }
 
-th,
-td {
-    border: 1px solid #ddd;
+.styled-table th, .styled-table td {
+    border: 1px solid #888;
     padding: 10px;
     text-align: left;
 }
 
-th {
+/* Světlý (výchozí) režim */
+.styled-table th {
+    background-color: #999;
+    color: white;
+}
+
+.styled-table td {
+    background-color: #f9f9f9;
+    color: black;
+}
+
+/* Tmavý režim */
+.dark-mode .styled-table th {
     background-color: #555;
     color: white;
 }
 
-.dark-mode th {
-    background-color: #777;
-}
-
-.alt-mode th {
-    background-color: #a77c55;
+.dark-mode .styled-table td {
+    background-color: #333;
     color: white;
 }
+
+/* Alternativní režim */
+.alt-mode .styled-table th {
+    background: #a77c55;
+    color: white;
+    border: 1px solid #663300;
+}
+
+.alt-mode .styled-table td {
+    background: #ffe4b5;
+    color: #663300;
+    border: 1px solid #663300;
+}
+
 
 /* Image styling */
 img {
@@ -605,6 +628,22 @@ pre {
     background-color: #a77c55;
 }
 
+.responsive-video {
+    width: 100%;
+    height: auto;
+    max-width: 800px; 
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 768px) {
+    .responsive-video {
+        max-width: 100%;
+    }
+}
 
 
 /* Animations */
@@ -682,21 +721,23 @@ pre {
     body {
         background-color: white;
         color: black;
+        font-size: 12pt;
+        line-height: 1.5;
     }
 
-    header,
-    nav,
-    footer,
-    .settings-container {
+    /* Skrytí zbytečných prvků */
+    header, nav, footer, .settings-container, video, .no-print {
         display: none;
     }
 
+    /* Šířka obsahu na celou stránku */
     main {
         box-shadow: none;
         width: 100%;
         max-width: 100%;
     }
 
+    /* Odkazy zobrazují URL v závorkách */
     a {
         color: black;
         text-decoration: none;
@@ -705,5 +746,24 @@ pre {
     a[href]:after {
         content: " (" attr(href) ")";
         font-size: 0.8em;
+    }
+
+    /* Tabulky - jasnější ohraničení */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    h1, h2, h3 {
+        page-break-before: always;
+    }
+
+    .page-break {
+        page-break-before: always;
     }
 }

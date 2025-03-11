@@ -43,6 +43,10 @@
                 <li><strong>Mechanická disperze</strong> – rozptyl látek v důsledku nehomogenit v porézním prostředí.
                 </li>
             </ul>
+            <video controls class="responsive-video">
+                <source src="video/transportVid.mp4" type="video/mp4">
+                Váš prohlížeč nepodporuje přehrávání videí.
+            </video>            
 
             <h3>Ovlivňující faktory</h3>
             <ul>
@@ -64,6 +68,101 @@
                 <figcaption>Simulace procesů transportu tekutin</figcaption>
             </figure>
         </section>
+
+        <section id="detaily-transportu">
+            <h2>Detaily transportních procesů</h2>
+
+            <h3>Klíčové transportní procesy</h3>
+            <ul>
+                <li>Advekce
+                    <ul>
+                        <li>Proudění podzemní vody</li>
+                        <li>Distribuce rozpuštěných látek</li>
+                    </ul>
+                </li>
+                <li>Difuze</li>
+                <li>Mechanická disperze</li>
+                <li>Transportní gradienty</li>
+                <li>Porozita a propustnost</li>
+                <li>Rovnováha vstupů a výstupů</li>
+                <li>Reakce spojené s transportem</li>
+            </ul>
+
+            <h3>Postup simulace transportu krok za krokem</h3>
+            <ol>
+                <li>Inicializace transportního modulu</li>
+                <li>Definice geometrie a síťování</li>
+                <li>Nastavení parametrů advekce</li>
+                <li>Nastavení parametrů difuze</li>
+                <li>Implementace mechanické disperze
+                    <ol>
+                        <li>Výpočet koncentračních gradientů</li>
+                        <li>Aplikace numerických schémat</li>
+                    </ol>
+                </li>
+                <li>Řešení transportních rovnic</li>
+                <li>Vyhodnocení výsledků transportu</li>
+            </ol>
+
+            <h2>Simulační parametry transportu</h2>
+            <table class="styled-table">
+                <caption>Základní parametry transportního modelu</caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Parametr</th>
+                        <th colspan="2">Hodnota</th>
+                        <th rowspan="2">Jednotka</th>
+                    </tr>
+                    <tr>
+                        <th>Minimální</th>
+                        <th>Maximální</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Porozita</td>
+                        <td>0.15</td>
+                        <td>0.35</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Hydraulická vodivost</td>
+                        <td>5.0e-5</td>
+                        <td>1.0e-3</td>
+                        <td>m/s</td>
+                    </tr>
+                    <tr>
+                        <td>Disperzní koeficient</td>
+                        <td>0.001</td>
+                        <td>0.1</td>
+                        <td>m²/s</td>
+                    </tr>
+                    <tr>
+                        <td>Molekulární difuzivita</td>
+                        <td>1.0e-9</td>
+                        <td>1.0e-6</td>
+                        <td>m²/s</td>
+                    </tr>
+                    <tr>
+                        <td>Rychlost proudění podzemní vody</td>
+                        <td>0.0001</td>
+                        <td>0.01</td>
+                        <td>m/s</td>
+                    </tr>
+                    <tr>
+                        <td>Časový krok simulace</td>
+                        <td>1</td>
+                        <td>1000</td>
+                        <td>s</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Celkový počet výpočetních buněk</td>
+                        <td colspan="2">1500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
     </main>
 
     <footer>

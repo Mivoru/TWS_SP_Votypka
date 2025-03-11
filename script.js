@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const audioElements = document.querySelectorAll("audio");
     const settingsIcon = document.getElementById("settingsIcon");
     const menuToggle = document.querySelector(".menu-toggle");
-    const navMenu = document.querySelector(".nav-menu");
 
     // Načtení Lottie.js pro animaci ikon
     const script = document.createElement("script");
@@ -16,11 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         navMenu.classList.toggle("active");
     });
 
-    document.querySelectorAll(".nav-menu a").forEach(link => {
-        link.addEventListener("click", () => {
-            navMenu.classList.remove("active");
-        });
-    });
 
     function toggleMethod(id) {
         const details = document.querySelector(`#${id} .method-details`);
