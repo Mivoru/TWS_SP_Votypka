@@ -229,53 +229,72 @@ select {
 }
 
 /* Table styling */
-/* Obecné styly pro tabulku */
 .styled-table {
     border-collapse: collapse;
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
+    background-color: #ffffff; 
+    color: #333333; 
 }
 
 .styled-table th, .styled-table td {
-    border: 1px solid #888;
-    padding: 10px;
+    border: 2px solid #444444; 
+    padding: 12px;
     text-align: left;
+    font-size: 16px;
 }
 
-/* Světlý (výchozí) režim */
 .styled-table th {
-    background-color: #999;
-    color: white;
+    background-color: #444; 
+    color: #ffffff; 
+    font-weight: bold;
 }
 
 .styled-table td {
-    background-color: #f9f9f9;
-    color: black;
+    background-color: #f9f9f9; 
 }
 
-/* Tmavý režim */
+.styled-table tbody tr:nth-child(even) td {
+    background-color: #e6e6e6; 
+}
+
+.dark-mode .styled-table {
+    background-color: #222222;
+    color: #ffffff;
+}
+
 .dark-mode .styled-table th {
-    background-color: #555;
-    color: white;
+    background-color: #222222;
+    color: #ffffff;
 }
 
 .dark-mode .styled-table td {
-    background-color: #333;
-    color: white;
+    background-color: #2e2e2e;
+    color: #ffffff;
 }
 
-/* Alternativní režim */
+.dark-mode .styled-table tbody tr:nth-child(even) td {
+    background-color: #3b3b3b;
+}
+
+.alt-mode .styled-table {
+    background-color: #ffe4b5;
+    color: #4a3628;
+}
+
 .alt-mode .styled-table th {
-    background: #a77c55;
-    color: white;
-    border: 1px solid #663300;
+    background-color: #a77c55;
+    color: #ffffff;
 }
 
 .alt-mode .styled-table td {
-    background: #ffe4b5;
-    color: #663300;
-    border: 1px solid #663300;
+    background-color: #ffe4b5;
+    color: #4a3628;
+}
+
+.alt-mode .styled-table tbody tr:nth-child(even) td {
+    background-color: #f0d5a3;
 }
 
 
@@ -506,10 +525,6 @@ button,
     pointer-events: auto;
 }
 
-/* Mobile menu toggle button */
-.menu-toggle {
-    display: none;
-}
 
 /* Method container */
 .method {
@@ -618,7 +633,6 @@ pre {
     transform: scale(1.05);
 }
 
-/* Přidání vizuálního odlišení odkazů ve tmavém režimu */
 .alt-mode .navigation-links a {
     background-color: #ffe4b5;
     color: #663300;
@@ -698,22 +712,6 @@ pre {
         z-index: 1000;
     }
 
-    .nav-menu.active {
-        display: flex;
-    }
-
-    /* Hamburger menu button */
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: white;
-        cursor: pointer;
-        padding: 10px;
-    }
 }
 
 /* Print styles */
