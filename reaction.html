@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
-    <meta name="description" content="Reakční model TRM 2D umožňuje simulaci chemických procesů, jako jsou rozpouštění minerálů, redoxní reakce a iontová výměna.">
+    <meta name="description"
+        content="Reakční model TRM 2D umožňuje simulaci chemických procesů, jako jsou rozpouštění minerálů, redoxní reakce a iontová výměna.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reakční model</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>Reakční model</h1>
         <div class="settings-container">
-            <div id="settingsIcon"></div> 
+            <div id="settingsIcon"></div>
             <div class="settings-buttons hidden">
                 <button id="dark-mode-toggle">Tmavý režim</button>
                 <button id="alt-mode-toggle">Alternativní režim</button>
@@ -39,6 +42,21 @@
                 <li><strong>Redoxní reakce</strong> – změna oxidačních stavů prvků.</li>
                 <li><strong>Iontová výměna</strong> – výměna iontů mezi kapalinou a pevnou fází.</li>
             </ul>
+            <h2>Postup simulace chemických reakcí</h2>
+            <ol>
+                <li>Příprava vstupních parametrů</li>
+                <li>Inicializace reakčního modelu</li>
+                <li>Výpočet rovnovážných reakcí</li>
+                <li>Řešení kinetických reakcí
+                    <ol>
+                        <li>Rozpouštění minerálů</li>
+                        <li>Srážení pevných látek</li>
+                        <li>Redoxní reakce</li>
+                    </ol>
+                </li>
+                <li>Výstup a vizualizace výsledků</li>
+            </ol>
+
             <p>Numerická řešení reakcí využívají:</p>
             <ul>
                 <li>Metody Runge-Kutta pro řešení soustav diferenciálních rovnic.</li>
@@ -52,8 +70,12 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 TRM 2D | <a target="_blank" href="https://achecks.org/achecker#wcag21aa-desktop,https://mivoru.github.io/TWS_SP_Votypka/reaction.html"><img src="https://achecks.org/images/icon_W21_aa.png" alt="AChecker accessibility checker: WCAG 2.1 (Level AA)" height="32" width="88" /></a>
+        <p>&copy; 2025 TRM 2D | <a target="_blank"
+                href="https://achecks.org/achecker#wcag21aa-desktop,https://mivoru.github.io/TWS_SP_Votypka/reaction.html"><img
+                    src="https://achecks.org/images/icon_W21_aa.png"
+                    alt="AChecker accessibility checker: WCAG 2.1 (Level AA)" height="32" width="88" /></a>
         </p>
     </footer>
 </body>
+
 </html>

@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             container: settingsIcon,
             renderer: "svg",
             loop: false,
-            autoplay: false, 
+            autoplay: false,
             path: "animation/Animation - 1741020087118.json",
         });
 

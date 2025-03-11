@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
-    <meta name="description" content="TRM 2D - Simulace transportních a chemických procesů v podzemní vodě. Model využívá metody konečných diferencí a objemů pro přesné výpočty.">
+    <meta name="description"
+        content="TRM 2D - Simulace transportních a chemických procesů v podzemní vodě. Model využívá metody konečných diferencí a objemů pro přesné výpočty.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRM 2D - Úvod</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>TRM 2D - Transportně-reakční model</h1>
         <div class="settings-container">
-            <div id="settingsIcon"></div> 
+            <div id="settingsIcon"></div>
             <div class="settings-buttons hidden">
                 <button id="dark-mode-toggle">Tmavý režim</button>
                 <button id="alt-mode-toggle">Alternativní režim</button>
             </div>
         </div>
-        
+
         <button class="menu-toggle">☰</button>
-        
+
         <nav>
             <ul>
                 <li><a href="transport.html">Transportní model</a></li>
@@ -33,22 +36,35 @@
     </header>
 
     <main>
+        <div class="navigation-links">
+            <p>Rychlá navigace:</p>
+            <a href="#features">Hlavní funkcionality</a>
+            <a href="#benefits">Přínosy modelu</a>
+            <a href="#motivation">Motivace a cíle</a>
+        </div>
+
         <section id="introduction">
             <h2>Úvod</h2>
-            <p>TRM 2D je software určený k simulaci transportně-reakčních procesů v podzemní vodě. 
-               Tento model umožňuje numerickou analýzu procesů jako je transport látek advekcí, 
-               difuzí a mechanickou disperzí a zároveň zahrnuje chemické reakce mezi složkami podzemní vody.</p>
+            <p>TRM 2D je software určený k simulaci transportně-reakčních procesů v podzemní vodě.
+                Tento model umožňuje numerickou analýzu procesů jako je transport látek advekcí,
+                difuzí a mechanickou disperzí a zároveň zahrnuje chemické reakce mezi složkami podzemní vody.</p>
+            <h3>Jak TRM 2D funguje?</h3>
+            <p>Model využívá pokročilé numerické metody pro řešení diferenciálních rovnic, které popisují tok a chemické
+                interakce v podzemní vodě. Výpočty probíhají iterativně, přičemž se bere v úvahu dynamika proudění a změny
+                chemického složení.</p>
         </section>
 
         <section id="motivation">
             <h2>Motivace a cíle projektu</h2>
-            <p>Hlavním cílem rozšíření TRM 2D je lepší propojení transportních výpočtů s geochemickými reakcemi,
-               zejména prostřednictvím integrace knihovny PhreeqcRM. Tím lze zajistit realističtější modelování
-               chemických interakcí a jejich dopad na složení podzemní vody.</p>
+            <p>Hlavním cílem rozšíření TRM 2D je lepší propojení transportních výpočtů s geochemickými reakcemi.</p>
+            <h3>Proč je tento model důležitý?</h3>
+            <p>V dnešní době je stále větší potřeba přesných predikcí změn v podzemní vodě, zejména v oblastech se
+                znečištěním či úniky kontaminantů. TRM 2D pomáhá modelovat vlivy různých faktorů na kvalitu vody.</p>
         </section>
 
         <section id="features">
             <h2>Hlavní funkcionality TRM 2D</h2>
+            <h3>Klíčové metody a přístupy</h3>
             <ul>
                 <li>Metoda konečných diferencí (FDM) pro numerický výpočet transportních procesů.</li>
                 <li>Metoda konečných objemů (FVM) pro reakční výpočty.</li>
@@ -59,15 +75,26 @@
 
         <section id="benefits">
             <h2>Přínos projektu</h2>
-            <p>Rozšíření TRM 2D umožní přesnější predikci kvality podzemních vod, což je klíčové pro environmentální studie,
-               správu vodních zdrojů a sanaci kontaminovaných lokalit. Model je využitelný například pro simulaci 
-               šíření kontaminantů nebo výpočet účinnosti sanačních metod.</p>
+            <h3>Jaké jsou hlavní výhody?</h3>
+            <p>Rozšíření TRM 2D umožní přesnější predikci kvality podzemních vod, což je klíčové pro environmentální
+                studie,
+                správu vodních zdrojů a sanaci kontaminovaných lokalit.</p>
+            <h3>Praktické využití</h3>
+            <ul>
+                <li>Simulace šíření kontaminantů.</li>
+                <li>Výpočet účinnosti sanačních metod.</li>
+                <li>Analýza dopadu geochemických procesů na kvalitu vody.</li>
+            </ul>
         </section>
-
     </main>
 
     <footer>
-        <p>&copy; 2025 TRM 2D | <a target="_blank" href="https://achecks.org/achecker#wcag21aa-desktop,https://mivoru.github.io/TWS_SP_Votypka/index.html"><img src="https://achecks.org/images/icon_W21_aa.png" alt="AChecker accessibility checker: WCAG 2.1 (Level AA)" height="32" width="88" /></a></p>
+        <p>&copy; 2025 TRM 2D | <a target="_blank"
+                href="https://achecks.org/achecker#wcag21aa-desktop,https://mivoru.github.io/TWS_SP_Votypka/index.html">
+                <img src="https://achecks.org/images/icon_W21_aa.png"
+                    alt="AChecker accessibility checker: WCAG 2.1 (Level AA)" height="32" width="88" />
+            </a></p>
     </footer>
 </body>
+
 </html>

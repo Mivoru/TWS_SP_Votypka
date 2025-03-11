@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
-    <meta name="description" content="Implementace modelu TRM 2D pro simulaci transportních a chemických procesů v podzemní vodě. Přehled metod, algoritmů a optimalizací použitých v simulacích.">
+    <meta name="description"
+        content="Implementace modelu TRM 2D pro simulaci transportních a chemických procesů v podzemní vodě. Přehled metod, algoritmů a optimalizací použitých v simulacích.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Implementace TRM 2D</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>Implementace TRM 2D</h1>
         <div class="settings-container">
-            <div id="settingsIcon"></div> 
+            <div id="settingsIcon"></div>
             <div class="settings-buttons hidden">
                 <button id="dark-mode-toggle">Tmavý režim</button>
                 <button id="alt-mode-toggle">Alternativní režim</button>
@@ -29,7 +32,7 @@
             </ul>
         </nav>
     </header>
-    
+
 
     <main>
         <section id="implementation">
@@ -44,20 +47,20 @@
 
         <section id="method-list">
             <h2>Příklady metod a jejich vysvětlení</h2>
-        
+
             <!-- TRM -->
             <div class="method-group">
                 <button class="group-toggle" onclick="toggleGroup('trm')">📂 trm.cpp</button>
                 <div class="method-group-details" id="trm">
-            <div class="method" id="init_quantities">
-                <button class="method-toggle">➕ init_quantities()</button>
-                <div class="method-details">
-                    <p><strong>Popis:</strong>
+                    <div class="method" id="init_quantities">
+                        <button class="method-toggle">➕ init_quantities()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong>
                                 Tato metoda inicializuje seznam veličin a jejich jednotek na základě XML souboru.
-                        Prochází XML stromem a hledá uzly s atributem quantityID. Pokud je atribut nalezen,
-                        uloží ho do mapy quantities spolu s odpovídajícím textem.
-                        Pokud atribut chybí, metoda pokračuje rekurzivně ve vnořených uzlech.</p>
-                    <pre><code>
+                                Prochází XML stromem a hledá uzly s atributem quantityID. Pokud je atribut nalezen,
+                                uloží ho do mapy quantities spolu s odpovídajícím textem.
+                                Pokud atribut chybí, metoda pokračuje rekurzivně ve vnořených uzlech.</p>
+                            <pre><code>
                         void trm_main::init_quantities(XMLElement *parent_elem) 
                         {
                             for (XMLElement *child = parent_elem->FirstChildElement(); child != nullptr; 
@@ -75,23 +78,26 @@
                         }
                         
                     </code></pre>
-                    <p><strong>Jak to funguje?</strong>
+                            <p><strong>Jak to funguje?</strong>
                                 Prochází XML uzly – metoda iteruje přes všechny poduzly parent_elem.
-                        Hledá atribut quantityID – pokud není nalezen, pokračuje do vnořených prvků.
-                        Ukládá veličiny do mapy quantities – spáruje quantityID s odpovídajícím textem.
-                        Používá rekurzi – umožňuje správnou inicializaci i pro hluboce vnořené XML struktury.</p>
-                </div>
-            </div>
-        
-            <div class="method" id="calculate">
-                <button class="method-toggle" >➕ calculate()</button>
-                <div class="method-details">
-                    <p><strong>Popis:</strong> 
+                                Hledá atribut quantityID – pokud není nalezen, pokračuje do vnořených prvků.
+                                Ukládá veličiny do mapy quantities – spáruje quantityID s odpovídajícím textem.
+                                Používá rekurzi – umožňuje správnou inicializaci i pro hluboce vnořené XML struktury.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="method" id="calculate">
+                        <button class="method-toggle">➕ calculate()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong>
                                 Tato metoda spouští hlavní výpočet transportních komponent a chemických reakcí.
-                        Nejprve resetuje předchozí výsledky, aktivuje transportní a reakční model a poté iteruje přes časové kroky.
-                        V každém kroku upravuje okrajové podmínky, počítá transport a reakce a přizpůsobuje časový krok
-                        podle přesnosti výpočtů.</p>
-                    <pre><code>
+                                Nejprve resetuje předchozí výsledky, aktivuje transportní a reakční model a poté iteruje
+                                přes časové kroky.
+                                V každém kroku upravuje okrajové podmínky, počítá transport a reakce a přizpůsobuje
+                                časový krok
+                                podle přesnosti výpočtů.</p>
+                            <pre><code>
                         void trm_main::calculate()
                         {
                             trans.remove_results();
@@ -124,21 +130,24 @@
                         }
                         
                     </code></pre>
-                    <p><strong>Jak to funguje?</strong>     Resetuje výsledky – metoda vymaže předchozí simulace transportu a reakcí.
-                        Inicializuje transportní a reakční model – nastavuje počáteční podmínky.
-                        Prochází časovými kroky – iteruje přes časovou osu od počátečního do koncového času.
-                        Vypočítává transport – volá trans.calculate(), která simuluje šíření látek.
-                        Vypočítává chemické reakce – volá react.calculate(), která počítá chemické interakce.
-                        Dynamicky upravuje časový krok – pokud je odchylka v koncentracích malá, časový krok se zvětší; pokud je velká, zmenší se.</p>
-                </div>
-            </div>
-        
-            <div class="method" id="load_inputs">
-                <button class="method-toggle" >➕ load_inputs()</button>
-                <div class="method-details">
-                    <p><strong>Popis:</strong>      Metoda načítá vstupní data ze souboru XML. Ověřuje jeho správnost, inicializuje transportní
-                        a reakční modul a načítá jejich parametry.</p>
-                    <pre><code>
+                            <p><strong>Jak to funguje?</strong> Resetuje výsledky – metoda vymaže předchozí simulace
+                                transportu a reakcí.
+                                Inicializuje transportní a reakční model – nastavuje počáteční podmínky.
+                                Prochází časovými kroky – iteruje přes časovou osu od počátečního do koncového času.
+                                Vypočítává transport – volá trans.calculate(), která simuluje šíření látek.
+                                Vypočítává chemické reakce – volá react.calculate(), která počítá chemické interakce.
+                                Dynamicky upravuje časový krok – pokud je odchylka v koncentracích malá, časový krok se
+                                zvětší; pokud je velká, zmenší se.</p>
+                        </div>
+                    </div>
+
+                    <div class="method" id="load_inputs">
+                        <button class="method-toggle">➕ load_inputs()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Metoda načítá vstupní data ze souboru XML. Ověřuje jeho
+                                správnost, inicializuje transportní
+                                a reakční modul a načítá jejich parametry.</p>
+                            <pre><code>
                         void trm_main::load_inputs(string input_file, bool require_all_comps)
                         {
                             XMLError result = xmldoc.LoadFile(input_file.c_str());
@@ -174,20 +183,21 @@
                         }
                         
                     </code></pre>
-                    <p><strong>Jak to funguje?</strong>     Načte XML soubor a zkontroluje, zda se úspěšně otevřel.
-                        Najde kořenový element XML (<TRM>) a prochází jeho děti.
-                        Inicializuje veličiny (Quantities).
-                        Načte transportní modul – nastaví metadata, časové parametry a síť.
-                        Načte reakční modul – nastaví databázi a reakční parametry.</p>
-                </div>
-            </div>
-        
-            <div class="method" id="save_inputs">
-                <button class="method-toggle" >➕ save_inputs()</button>
-                <div class="method-details">
-                    <p><strong>Popis:</strong>      Metoda ukládá aktuální vstupní data a výsledky simulace do XML souboru.
-                        Zajišťuje konzistenci mezi uloženými hodnotami a nastaveními modelu.</p>
-                    <pre><code>
+                            <p><strong>Jak to funguje?</strong> Načte XML soubor a zkontroluje, zda se úspěšně otevřel.
+                                Najde kořenový element XML (<TRM>) a prochází jeho děti.
+                                    Inicializuje veličiny (Quantities).
+                                    Načte transportní modul – nastaví metadata, časové parametry a síť.
+                                    Načte reakční modul – nastaví databázi a reakční parametry.</p>
+                        </div>
+                    </div>
+
+                    <div class="method" id="save_inputs">
+                        <button class="method-toggle">➕ save_inputs()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Metoda ukládá aktuální vstupní data a výsledky simulace do XML
+                                souboru.
+                                Zajišťuje konzistenci mezi uloženými hodnotami a nastaveními modelu.</p>
+                            <pre><code>
                         void trm_main::save_inputs(const string& input_file)
                         {
                             log(BASIC) << "Saving input/results file '" << input_file << "' started.";
@@ -208,25 +218,26 @@
                         }
                         
                     </code></pre>
-                    <p><strong>Jak to funguje?</strong>     Vytvoří XML dokument, pokud neexistuje.
-                        Uloží nastavení logování.
-                        Serializuje data transportu a reakcí (trans.serialize(), react.serialize()).
-                        Uloží do souboru pomocí xmldoc.SaveFile(input_file.c_str()).</p>
+                            <p><strong>Jak to funguje?</strong> Vytvoří XML dokument, pokud neexistuje.
+                                Uloží nastavení logování.
+                                Serializuje data transportu a reakcí (trans.serialize(), react.serialize()).
+                                Uloží do souboru pomocí xmldoc.SaveFile(input_file.c_str()).</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-<!-- TRM_MODULE -->
-<div class="method-group">
-    <button class="group-toggle" onclick="toggleGroup('trm_module')">📂 trm_module.cpp</button>
-    <div class="method-group-details" id="trm_module">
-        
-        <div class="method" id="calc_component_chars">
-            <button class="method-toggle">➕ calc_component_chars()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Tato metoda počítá minimální a maximální hodnoty všech komponent v dané kategorii.</p>
-                
-                <pre><code>
+            <!-- TRM_MODULE -->
+            <div class="method-group">
+                <button class="group-toggle" onclick="toggleGroup('trm_module')">📂 trm_module.cpp</button>
+                <div class="method-group-details" id="trm_module">
+
+                    <div class="method" id="calc_component_chars">
+                        <button class="method-toggle">➕ calc_component_chars()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Tato metoda počítá minimální a maximální hodnoty všech komponent
+                                v dané kategorii.</p>
+
+                            <pre><code>
 void trm_module::calc_component_chars(const std::string& category) {
     vector<unsigned> times = get_component_times(category);
     vector<string> names = get_component_names(category);
@@ -249,16 +260,18 @@ void trm_module::calc_component_chars(const std::string& category) {
     }
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Pro každou komponentu v kategorii projde dostupná časová data, spočítá minimum a maximum a tyto hodnoty uloží.</p>
-            </div>
-        </div>
+                            <p><strong>Jak funguje:</strong> Pro každou komponentu v kategorii projde dostupná časová
+                                data, spočítá minimum a maximum a tyto hodnoty uloží.</p>
+                        </div>
+                    </div>
 
-        <div class="method" id="load_time">
-            <button class="method-toggle">➕ load_time()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Načte nastavení času z XML souboru a inicializuje časové kroky.</p>
-                
-                <pre><code>
+                    <div class="method" id="load_time">
+                        <button class="method-toggle">➕ load_time()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Načte nastavení času z XML souboru a inicializuje časové kroky.
+                            </p>
+
+                            <pre><code>
 void trm_module::load_time(XMLElement *time_elem) {
     set_time(
         output->get_attr_unsigned(time_elem, "quantityID"), 
@@ -285,23 +298,25 @@ void trm_module::load_time(XMLElement *time_elem) {
     set_time_end_id();
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Čte z XML elementy `Step` a `BorderCondChanges`, nastavuje časy a kroky změn okrajových podmínek.</p>
-            </div>
-        </div>
-        
-    </div>
-</div>
-    
-<!-- TRM_REACT -->
-<div class="method-group">
-    <button class="group-toggle" onclick="toggleGroup('trm_react')">📂 trm_react.cpp</button>
-    <div class="method-group-details" id="trm_react">
+                            <p><strong>Jak funguje:</strong> Čte z XML elementy `Step` a `BorderCondChanges`, nastavuje
+                                časy a kroky změn okrajových podmínek.</p>
+                        </div>
+                    </div>
 
-        <div class="method" id="activate_boundary_conditions">
-            <button class="method-toggle">➕ activate_boundary_conditions()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Aktivuje okrajové podmínky pro reakční modul a vypočítá jejich koncentrace.</p>
-                <pre><code>
+                </div>
+            </div>
+
+            <!-- TRM_REACT -->
+            <div class="method-group">
+                <button class="group-toggle" onclick="toggleGroup('trm_react')">📂 trm_react.cpp</button>
+                <div class="method-group-details" id="trm_react">
+
+                    <div class="method" id="activate_boundary_conditions">
+                        <button class="method-toggle">➕ activate_boundary_conditions()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Aktivuje okrajové podmínky pro reakční modul a vypočítá jejich
+                                koncentrace.</p>
+                            <pre><code>
 void reaction_module::activate_boundary_conditions(
     vector<string>& component_names, vector_values& bound_cond_vec,
     map<unsigned, vector<double>>& boundary_concs, unsigned bc_time) {
@@ -342,17 +357,19 @@ void reaction_module::activate_boundary_conditions(
     }
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Načítá soubory s okrajovými podmínkami, přidává odpovídající koncentrace pro buňky a předává je do Phreeqc.</p>
+                            <p><strong>Jak funguje:</strong> Načítá soubory s okrajovými podmínkami, přidává
+                                odpovídající koncentrace pro buňky a předává je do Phreeqc.</p>
 
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-        <div class="method" id="activate">
-            <button class="method-toggle">➕ activate()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Aktivuje reakční modul pro dané buňky a inicializuje počáteční podmínky.</p>
-                
-                <pre><code>
+                    <div class="method" id="activate">
+                        <button class="method-toggle">➕ activate()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Aktivuje reakční modul pro dané buňky a inicializuje počáteční
+                                podmínky.</p>
+
+                            <pre><code>
 void reaction_module::activate(
     vector<double>& concentrations, vector<string>& component_names, vector_values& init_cond_vec,
     arma::mat in_component_data, unsigned bc_time, double time, component &mapping_component) {
@@ -408,16 +425,17 @@ void reaction_module::activate(
     }
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Načítá počáteční podmínky, nastavuje faktory pro výpočty a spouští Phreeqc.</p>
-            </div>
-        </div>
+                            <p><strong>Jak funguje:</strong> Načítá počáteční podmínky, nastavuje faktory pro výpočty a
+                                spouští Phreeqc.</p>
+                        </div>
+                    </div>
 
-        <div class="method" id="react_calculate">
-            <button class="method-toggle">➕ calculate()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Vypočítává reakční modul pro daný časový krok.</p>
-                
-                <pre><code>
+                    <div class="method" id="react_calculate">
+                        <button class="method-toggle">➕ calculate()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Vypočítává reakční modul pro daný časový krok.</p>
+
+                            <pre><code>
 void reaction_module::calculate(
     unsigned t_index, double time, double time_step, vector<double>& concentrations, 
     vector<string>& names, vector<double>& mapping) {
@@ -458,24 +476,25 @@ void reaction_module::calculate(
     }
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Phreeqc provádí výpočty na základě koncentrací a okrajových podmínek.</p>
+                            <p><strong>Jak funguje:</strong> Phreeqc provádí výpočty na základě koncentrací a okrajových
+                                podmínek.</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-    </div>
-</div>
+            <!-- TRM_TRANS -->
+            <div class="method-group">
+                <button class="group-toggle" onclick="toggleGroup('trm_trans')">📂 trm_trans.cpp</button>
+                <div class="method-group-details" id="trm_trans">
 
-        <!-- TRM_TRANS -->
-<div class="method-group">
-    <button class="group-toggle" onclick="toggleGroup('trm_trans')">📂 trm_trans.cpp</button>
-    <div class="method-group-details" id="trm_trans">
+                    <div class="method" id="init_grid_flow">
+                        <button class="method-toggle">➕ init_grid_flow()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Inicializuje matice toků v gridu.</p>
 
-        <div class="method" id="init_grid_flow">
-            <button class="method-toggle">➕ init_grid_flow()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Inicializuje matice toků v gridu.</p>
-                
-                <pre><code>
+                            <pre><code>
 void transport_module::init_grid_flow(unsigned bc_time) {
     if (grid_flow.find(bc_time) == grid_flow.end()) {
         component tmp_component;
@@ -522,16 +541,17 @@ void transport_module::init_grid_flow(unsigned bc_time) {
     }
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Vytvoří sparse matici pro `grid_flow`, pokud ještě není definována, a následně naplní hodnotami na základě hydraulické hlavy.</p>
-            </div>
-        </div>
+                            <p><strong>Jak funguje:</strong> Vytvoří sparse matici pro `grid_flow`, pokud ještě není
+                                definována, a následně naplní hodnotami na základě hydraulické hlavy.</p>
+                        </div>
+                    </div>
 
-        <div class="method" id="trans_calculate">
-            <button class="method-toggle">➕ calculate()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Hlavní výpočet transportních komponent.</p>
-                
-                <pre><code>
+                    <div class="method" id="trans_calculate">
+                        <button class="method-toggle">➕ calculate()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Hlavní výpočet transportních komponent.</p>
+
+                            <pre><code>
 void transport_module::calculate(unsigned t_index, double time, vector<double>& concentrations, 
     vector<string>& component_names, unsigned curr_bc_time, vector<double>& mapping, double curr_time_step) {
 
@@ -547,22 +567,23 @@ void transport_module::calculate(unsigned t_index, double time, vector<double>& 
     log(BASIC) << "Transport for time step ID '" << t_index << "' (time " << time << ") calculated.";
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Probíhá výpočet toků a koncentrací pomocí diferenciálních rovnic a maticových operací.</p>
+                            <p><strong>Jak funguje:</strong> Probíhá výpočet toků a koncentrací pomocí diferenciálních
+                                rovnic a maticových operací.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-    
-        <!-- TRM_INOUT -->
-<div class="method-group">
-    <button class="group-toggle" onclick="toggleGroup('trm_inout')">📂 trm_inout.cpp</button>
-    <div class="method-group-details" id="trm_inout">
 
-        <div class="method" id="load_output_settings">
-            <button class="method-toggle">➕ load_output_settings()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Načítá nastavení výstupních souborů z XML souboru.</p>
-                <pre><code>
+            <!-- TRM_INOUT -->
+            <div class="method-group">
+                <button class="group-toggle" onclick="toggleGroup('trm_inout')">📂 trm_inout.cpp</button>
+                <div class="method-group-details" id="trm_inout">
+
+                    <div class="method" id="load_output_settings">
+                        <button class="method-toggle">➕ load_output_settings()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Načítá nastavení výstupních souborů z XML souboru.</p>
+                            <pre><code>
 void outputter::load_output_settings(XMLElement *result_file_elem, const string& tag_name)
 {
     XMLElement *output_elem = get_child_elem(result_file_elem, tag_name);
@@ -583,16 +604,18 @@ void outputter::load_output_settings(XMLElement *result_file_elem, const string&
     }
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Extrahuje cesty, typy výstupních souborů a další nastavení z XML uzlu a ukládá je do objektu `outputter`.</p>
+                            <p><strong>Jak funguje:</strong> Extrahuje cesty, typy výstupních souborů a další nastavení
+                                z XML uzlu a ukládá je do objektu `outputter`.</p>
 
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-        <div class="method" id="set_values">
-            <button class="method-toggle">➕ set_values()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Nastavuje vlastnosti výstupních souborů, jako jsou adresáře, typy výstupů a formáty souborů.</p>
-                <pre><code>
+                    <div class="method" id="set_values">
+                        <button class="method-toggle">➕ set_values()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Nastavuje vlastnosti výstupních souborů, jako jsou adresáře, typy
+                                výstupů a formáty souborů.</p>
+                            <pre><code>
 void outputter::set_values(const string& cell_output_type, const string& step_output_type, 
     const string& directory, bool use_csv_subdirs, bool use_observation, const string& file_name)
 {
@@ -617,16 +640,17 @@ void outputter::set_values(const string& cell_output_type, const string& step_ou
     set_dir_file(directory, file_name);
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Kontroluje, zda jsou zadané typy platné, a nastavuje odpovídající vlastnosti pro ukládání výstupů.</p>
+                            <p><strong>Jak funguje:</strong> Kontroluje, zda jsou zadané typy platné, a nastavuje
+                                odpovídající vlastnosti pro ukládání výstupů.</p>
 
-            </div>
-        </div>
+                        </div>
+                    </div>
 
-        <div class="method" id="mat_to_csv">
-            <button class="method-toggle">➕ mat_to_csv()</button>
-            <div class="method-details">
-                <p><strong>Popis:</strong> Ukládá matici dat do CSV souboru.</p>
-                <pre><code>
+                    <div class="method" id="mat_to_csv">
+                        <button class="method-toggle">➕ mat_to_csv()</button>
+                        <div class="method-details">
+                            <p><strong>Popis:</strong> Ukládá matici dat do CSV souboru.</p>
+                            <pre><code>
 void outputter::mat_to_csv(arma::mat mat, string file_name, bool adapt_size, unsigned nrows, unsigned ncols)
 {
     arma::mat export_mat(mat);
@@ -655,24 +679,29 @@ void outputter::mat_to_csv(arma::mat mat, string file_name, bool adapt_size, uns
     export_mat.save(file_name, arma::csv_ascii);
 }
                 </code></pre>
-                <p><strong>Jak funguje:</strong> Zajišťuje správné formátování matice, případně ji přizpůsobuje požadované velikosti, a poté ji ukládá do souboru.</p>
+                            <p><strong>Jak funguje:</strong> Zajišťuje správné formátování matice, případně ji
+                                přizpůsobuje požadované velikosti, a poté ji ukládá do souboru.</p>
 
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-    </div>
-</div>
+        </section>
 
-    </section>
-        
 
     </main>
 
 
     <footer>
         <p>&copy; 2025 TRM 2D</p>
-        <p><a target="_blank" href="https://achecks.org/achecker#wcag21aa-desktop,https://mivoru.github.io/TWS_SP_Votypka/implementation.html"><img src="https://achecks.org/images/icon_W21_aa.png" alt="AChecker accessibility checker: WCAG 2.1 (Level AA)" height="32" width="88" /></a>
+        <p><a target="_blank"
+                href="https://achecks.org/achecker#wcag21aa-desktop,https://mivoru.github.io/TWS_SP_Votypka/implementation.html"><img
+                    src="https://achecks.org/images/icon_W21_aa.png"
+                    alt="AChecker accessibility checker: WCAG 2.1 (Level AA)" height="32" width="88" /></a>
         </p>
     </footer>
 </body>
+
 </html>

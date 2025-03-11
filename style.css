@@ -1,5 +1,6 @@
 /* Base layout */
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -54,7 +55,7 @@ nav ul li {
 }
 
 nav ul li a::before {
-    content: "╬"; 
+    content: "╬";
     margin-right: 5px;
 }
 
@@ -105,6 +106,8 @@ main {
 .dark-mode {
     background-color: #2b2b2b;
     color: white;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1.5L10.09 7.41 4.5 9 7.41 12 4.5 15 10.09 16.59 12 22.5 13.91 16.59 19.5 15 16.59 12 19.5 9 13.91 7.41 12 1.5z" fill="%23fff"/></svg>');
+    background-color: #222; 
 }
 
 .dark-mode header {
@@ -123,6 +126,8 @@ main {
 .alt-mode {
     background-color: #f8e5cf;
     color: #4a3628;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1.5L10.09 7.41 4.5 9 7.41 12 4.5 15 10.09 16.59 12 22.5 13.91 16.59 19.5 15 16.59 12 19.5 9 13.91 7.41 12 1.5z" fill="%23b8865e"/></svg>');
+    background-color: #f8e5cf;
 }
 
 .alt-mode header {
@@ -139,21 +144,21 @@ main {
 
 /* Theme-specific button styles */
 button:hover {
-    background-color: #444444; 
+    background-color: #444444;
 }
 
 .dark-mode button {
-    background-color: #444444; 
-    color: #ffffff; 
+    background-color: #444444;
+    color: #ffffff;
 }
 
 .dark-mode button:hover {
-    background-color: #222222; 
+    background-color: #222222;
 }
 
 .alt-mode button {
     background-color: #8b5e3c;
-    color: #ffffff; 
+    color: #ffffff;
 }
 
 .alt-mode button:hover {
@@ -204,7 +209,9 @@ label {
     margin-bottom: 5px;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -223,12 +230,13 @@ input, textarea, select {
 
 /* Table styling */
 table {
-    width: 100%; 
+    width: 100%;
     max-width: 100%;
     overflow-x: auto;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
@@ -278,21 +286,21 @@ footer {
 }
 
 footer a {
-    color: #ffffff; 
+    color: #ffffff;
     text-decoration: underline;
     font-weight: bold;
 }
 
 footer a:hover {
-    color: #ffcc00; 
+    color: #ffcc00;
 }
 
 .dark-mode footer a {
-    color: #ffcc00; 
+    color: #ffcc00;
 }
 
 .alt-mode footer a {
-    color: #5a3d1e; 
+    color: #5a3d1e;
 }
 
 
@@ -379,10 +387,15 @@ section {
 /* Font styling */
 body {
     font-family: 'Arial', sans-serif;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1.5L10.09 7.41 4.5 9 7.41 12 4.5 15 10.09 16.59 12 22.5 13.91 16.59 19.5 15 16.59 12 19.5 9 13.91 7.41 12 1.5z" fill="%23999"/></svg>');
+    background-size: 200px;
+    background-repeat: repeat;
+    background-position: center;
 }
 
 /* Figure and image styling */
-figure, img {
+figure,
+img {
     display: block;
     max-width: 80%;
     margin: auto;
@@ -415,7 +428,8 @@ figcaption {
 }
 
 /* Button styling */
-button, .settings-buttons button {
+button,
+.settings-buttons button {
     background: #5a5a5a;
     color: white;
     padding: 10px 15px;
@@ -546,15 +560,63 @@ pre {
     padding-left: 20px;
 }
 
+.settings-icon {
+    width: 50px;
+    height: 50px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1.5L10.09 7.41 4.5 9 7.41 12 4.5 15 10.09 16.59 12 22.5 13.91 16.59 19.5 15 16.59 12 19.5 9 13.91 7.41 12 1.5z" fill="%23333"/></svg>');
+}
+
+/* Styl pro odkazy na sekce */
+.navigation-links {
+    margin: 20px auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.navigation-links p {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.navigation-links a {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    background-color: #666;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.navigation-links a:hover {
+    background-color: #222;
+    transform: scale(1.05);
+}
+
+/* Přidání vizuálního odlišení odkazů ve tmavém režimu */
+.alt-mode .navigation-links a {
+    background-color: #ffe4b5;
+    color: #663300;
+}
+
+.alt-mode .navigation-links a:hover {
+    background-color: #a77c55;
+}
+
+
+
 /* Animations */
 @keyframes fadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(-10px); 
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
     }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -621,22 +683,25 @@ pre {
         background-color: white;
         color: black;
     }
-    
-    header, nav, footer, .settings-container {
+
+    header,
+    nav,
+    footer,
+    .settings-container {
         display: none;
     }
-    
+
     main {
         box-shadow: none;
         width: 100%;
         max-width: 100%;
     }
-    
+
     a {
         color: black;
         text-decoration: none;
     }
-    
+
     a[href]:after {
         content: " (" attr(href) ")";
         font-size: 0.8em;
