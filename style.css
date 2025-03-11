@@ -34,7 +34,6 @@ header h1 {
     white-space: nowrap;
 }
 
-
 /* Navigation */
 nav ul {
     list-style: none;
@@ -247,7 +246,7 @@ select {
 }
 
 .styled-table th {
-    background-color: #666; 
+    background-color: #444; 
     color: #ffffff; 
     font-weight: bold;
 }
@@ -682,7 +681,6 @@ pre {
 }
 
 @media (max-width: 768px) {
-
     nav ul {
         flex-direction: column;
         align-items: center;

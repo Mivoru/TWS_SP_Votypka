@@ -6,14 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const settingsIcon = document.getElementById("settingsIcon");
     const menuToggle = document.querySelector(".menu-toggle");
     const navMenu = document.querySelector(".nav-menu");
-    const email = document.getElementById("email").value;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(email)) {
-        document.getElementById("emailError").textContent = "Neplatný e-mail.";
-        event.preventDefault(); // Zabrání odeslání formuláře
-    }
-
 
     // Načtení Lottie.js pro animaci ikon
     const script = document.createElement("script");
@@ -30,12 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
     function toggleMethod(id) {
         const details = document.querySelector(`#${id} .method-details`);
         if (!details) return;
         details.style.display = details.style.display === "block" ? "none" : "block";
     }
+    
 
     function toggleGroup(id) {
         const group = document.getElementById(id);
